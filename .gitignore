@@ -1,0 +1,24 @@
+# Windows
+[Dd]esktop.ini
+Thumbs.db
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+
+# Node.js
+cloud/node_modules/
+node_modules
+
+# idea
+.idea
+
+# vscode
+.vscode
+
+/cloud/functions/*/node_modules/
+
