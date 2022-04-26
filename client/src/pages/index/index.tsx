@@ -1,15 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
+import { Router } from "tarojs-router-next";
 import Taro from "@tarojs/taro";
 import { View, Swiper, SwiperItem, Image } from "@tarojs/components";
-import { Grid, GridItem } from "@antmjs/vantui";
+import { Button, Grid, GridItem } from "@antmjs/vantui";
 
 import ImgCopy from "../../assets/home/copy.svg";
 import ImgDocument from "../../assets/home/document.svg";
 import ImgImage from "../../assets/home/image.svg";
 import ImgTest from "../../assets/home/test.svg";
 import { querySwiper } from "../../services";
-import styles from "./index.module.less";
 import { GridItemKeys } from "../../constants/global";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { incrementByAmount, increment } from "../../slices/counterSlice";
+import styles from "./index.module.less";
+import { mustLogin } from "../../utils";
 
 interface SwiperType extends CloudDatabase {
   imgSrc: string;
@@ -17,19 +21,41 @@ interface SwiperType extends CloudDatabase {
 
 const Index = () => {
   const [swiperList, setSwiperList] = useState<SwiperType[]>([]);
+  const count = useAppSelector((state) => state.counter.value);
+  const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    // 请求轮播图数据
+    querySwiper()
+      .then((res) => {
+        setSwiperList(res.data as SwiperType[]);
+      })
+      .catch(() => {
+        Taro.showToast({
+          title: "轮播图加载失败",
+          icon: "error",
+        });
+      });
+  }, []);
+
+  // 功能入口列表
   const gridItemList = useMemo(() => {
-    const handleItemClick = (key: GridItemKeys) => {
+    const handleItemClick = async (key: GridItemKeys) => {
       // 进入入口前校验一遍登录状态
-      switch (key) {
-        case GridItemKeys.document:
-          break;
-        default:
-          Taro.showToast({ title: "此功能暂未开放, 敬请期待", icon: "none" });
-          break;
+      const loginInfo = await mustLogin();
+      if (loginInfo) {
+        switch (key) {
+          case GridItemKeys.document:
+            Router.toPrintOption();
+            break;
+          default:
+            Taro.showToast({ title: "此功能暂未开放, 敬请期待", icon: "none" });
+            break;
+        }
+      } else {
+        Taro.showToast({ title: "此功能需登录后访问", icon: "none" });
       }
     };
-
     const items = [
       {
         key: GridItemKeys.document,
@@ -58,13 +84,6 @@ const Index = () => {
     }));
   }, []);
 
-  useEffect(() => {
-    // 请求轮播图数据
-    querySwiper().then((res) => {
-      setSwiperList(res.data as SwiperType[]);
-    });
-  }, []);
-
   return (
     <View className={styles.wrapper}>
       <View className={styles.header}>
@@ -90,7 +109,21 @@ const Index = () => {
           ))}
         </Grid>
       </View>
-
+      {count}
+      <Button
+        onClick={() => {
+          dispatch(increment());
+        }}
+      >
+        click
+      </Button>
+      <Button
+        onClick={() => {
+          dispatch(incrementByAmount(2));
+        }}
+      >
+        click2
+      </Button>
       {/*<Login />*/}
     </View>
   );

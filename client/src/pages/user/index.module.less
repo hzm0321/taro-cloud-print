@@ -1,34 +1,112 @@
+@import "../../styles/variable";
+
 .wrapper {
+  min-height: 100vh;
+  position: relative;
 
-  .header {
-    background-color: #fff;
+  .user {
+    display: flex;
+    flex-direction: column;
+    margin-top: 140px;
+    min-height: 100vh;
 
-    .swiper {
-      padding: 30px 25px 0 25px;
-      height: 300px;
+    .info {
+      height: 100px;
+      padding: 0 20px;
+      display: flex;
+      position: relative;
+      z-index: 1;
 
-      .swiper-item {
-        height: 100%;
+      .avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+      }
 
-        .swiper-img {
+      .message {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 20px;
+
+        .name {
+          font-size: 33px;
+        }
+
+        .vip {
+          margin-top: 20px;
+
+          .icon {
+            width: 100px;
+            height: 100%;
+          }
+        }
+      }
+
+      .account {
+        position: absolute;
+        right: 20px;
+        bottom: 10px;
+        display: flex;
+        align-items: center;
+        font-size: 25px;
+        color: @page-color-gray-dark
+      }
+
+      .vip-card {
+        position: absolute;
+        top: 150px;
+        width: calc(100% - 40px);
+        z-index: 1;
+
+        Image {
           width: 100%;
-          height: 100%;
-          border-radius: 20px;
+          border-radius: 30px;
+        }
+
+        .text {
+          font-size: 25px;
+          color: #fff;
+          position: absolute;
+          top: 42px;
+          right: 20px;
         }
       }
     }
 
-    :global {
-      .van-icon--image {
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        background-color: #fff;
-      }
+    .content {
+      flex: 1;
+      background-color: #fff;
+      z-index: 999;
+      padding: 20px;
+      margin-top: 150px;
 
-      .van-grid-item__text {
-        margin-top: 30px;
+      .operation {
+        //margin-top: 40px;
+        background-color: #fff;
+        border-radius: 15px;
+        //box-shadow: 0 15px 10px -15px #e6e6e6;
+        box-shadow: #e6e6e6 0 0 20px;
+
+        .icon {
+          width: 50px;
+          height: 50px;
+          margin-right: 20px;
+        }
+
+        :global {
+          .van-cell-group{
+            margin: 0;
+          }
+        }
       }
     }
+  }
+
+  .login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }

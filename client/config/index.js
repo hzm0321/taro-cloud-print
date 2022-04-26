@@ -11,10 +11,11 @@ const config = {
   },
   sourceRoot: "src",
   outputRoot: "dist",
-  plugins: [],
+  plugins: ["tarojs-router-next-plugin"],
   defineConstants: {},
   alias: {
     "@/components": path.resolve(__dirname, "..", "src/components"),
+    "@/assets": path.resolve(__dirname, "..", "src/assets"),
     "@/utils": path.resolve(__dirname, "..", "src/utils"),
     "@/package": path.resolve(__dirname, "..", "package.json"),
     "@/project": path.resolve(__dirname, "..", "project.config.json"),

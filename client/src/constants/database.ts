@@ -4,6 +4,8 @@
 
 // 轮播图
 export const DB_SWIPER = "swiper";
+// 用户表
+export const DB_USERS = "users";
 // 区域
 export const DB_AREA = "areas";
 // 商家

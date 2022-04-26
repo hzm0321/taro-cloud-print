@@ -25,8 +25,37 @@ declare namespace NodeJS {
       | "jd";
   }
 }
+
+// 云数据库包含的基础字段
 declare interface CloudDatabase {
-  _id: string;
+  readonly _id: string;
   _createTime: Date;
   _updateTime: Date;
+}
+
+type CloudFunctionResultSuccess<T> = {
+  success: true;
+  data: T;
+};
+
+type CloudFunctionResultFail = {
+  success: false;
+  message: string;
+};
+
+// 云函数返回内容
+declare interface CloudFunctionResult<T> extends TaroGeneral.CallbackResult {
+  result: CloudFunctionResultSuccess<T> | CloudFunctionResultFail;
+}
+
+// users 表字段
+declare interface UserDb extends CloudDatabase {
+  _openid: string;
+  avatarUrl: string;
+  city: string;
+  country: string;
+  gender: number;
+  language: string;
+  nickName: string;
+  province: string;
 }

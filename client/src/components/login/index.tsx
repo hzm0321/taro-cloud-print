@@ -1,10 +1,25 @@
 import React from "react";
+import { isFunction } from "lodash";
 import { Button } from "@antmjs/vantui";
 
-interface Props {}
+import { mustLogin } from "../../utils";
 
-const Login: React.FC<Props> = () => {
-  return <Button type="primary">登录</Button>;
+interface Props {
+  afterLogin: () => void;
+}
+
+const Login: React.FC<Props> = ({ afterLogin }) => {
+  const getLogin = () => {
+    mustLogin().then((res) => {
+      isFunction(afterLogin) && afterLogin(res);
+    });
+  };
+
+  return (
+    <Button round type="primary" onClick={getLogin}>
+      立即登录
+    </Button>
+  );
 };
 
 export default Login;

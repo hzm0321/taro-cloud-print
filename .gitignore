@@ -21,4 +21,4 @@ node_modules
 .vscode
 
 /cloud/functions/*/node_modules/
-
+/cloud/functions/*/package-lock.json

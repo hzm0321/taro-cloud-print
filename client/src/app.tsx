@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
+import { Provider } from "react-redux";
+
 import Taro from "@tarojs/taro";
 
+import { store } from "./store";
 import { TEST_CLOUD_SERVICE } from "./constants/service-prefix";
 import "./app.less";
 
@@ -18,7 +21,7 @@ const App: React.FC<Props> = ({ children }) => {
     }
   });
 
-  return children;
+  return <Provider store={store}>{children}</Provider>;
 };
 
 export default App;
