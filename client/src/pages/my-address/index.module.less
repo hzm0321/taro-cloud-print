@@ -1,0 +1,27 @@
+@import '../../styles/variable';
+
+.wrapper {
+  padding: 20px;
+  min-height: 100vh;
+
+  .empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .add {
+    position: fixed;
+    bottom: 10px;
+    width: calc(100% - 40px);
+    padding-bottom: calc(10px + env(safe-area-inset-bottom) / 2); // 适配iPhone X以上机型底部横条
+
+    :global {
+      .at-button__text {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}

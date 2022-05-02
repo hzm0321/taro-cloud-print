@@ -46,7 +46,7 @@ exports.main = async (event, context) => {
   } catch (e) {
     return {
       success: false,
-      message: e,
+      msg: e,
     };
   }
 };

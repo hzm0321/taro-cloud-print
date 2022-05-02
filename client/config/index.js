@@ -26,7 +26,6 @@ const config = {
   },
   framework: "react",
   mini: {
-    webpackChain(chain) {},
     postcss: {
       pxtransform: {
         enable: true,

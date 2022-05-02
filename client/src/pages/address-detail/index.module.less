@@ -1,0 +1,25 @@
+.wrapper {
+ padding-top: 10px;
+
+  .save {
+    margin-left: 20px;
+    position: fixed;
+    bottom: 10px;
+    width: calc(100% - 40px);
+    padding-bottom: calc(10px + env(safe-area-inset-bottom) / 2); // 适配iPhone X以上机型底部横条
+  }
+
+  :global {
+    .van-cell-group__title {
+      font-size: 34px;
+      color: black;
+    }
+
+    .vant-form-label {
+      font-size: 28px;
+    }
+    .vant-form-formItem-controll {
+      font-size: 28px;
+    }
+  }
+}

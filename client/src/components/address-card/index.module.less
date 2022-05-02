@@ -1,0 +1,50 @@
+@import '../../styles/variable';
+
+.wrapper {
+  .card-shadow();
+  position: relative;
+
+  .area {
+    display: flex;
+    align-items: center;
+    font-size: 34px;
+
+    .icon {
+      margin-right: 20px;
+      width: 50px;
+      height: 50px;
+    }
+    .phone {
+      margin-left: 20px;
+      color: @page-color-gray-dark;
+    }
+  }
+
+  .detail {
+    font-size: 28px;
+    margin-top: 10px;
+    padding-left: 70px;
+    color: @page-color-gray-dark;
+  }
+
+  .line {
+    width: calc(100% - 70px);
+    height: 1px;
+    margin-top: 20px;
+    margin-left: 70px;
+    box-sizing: border-box;
+    background-color: @page-color-gray-light;
+  }
+
+  .edit {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+}

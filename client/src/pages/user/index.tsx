@@ -12,6 +12,7 @@ import Login from "../../components/login";
 import Empty from "../../components/empty";
 import { USER_INFO_STORAGE } from "../../constants/storage";
 import { isLogin } from "../../utils";
+import Container from "../../components/container";
 import styles from "./index.module.less";
 
 const User = () => {
@@ -24,7 +25,7 @@ const User = () => {
   }, []);
 
   return (
-    <View className={styles.wrapper}>
+    <Container className={styles.wrapper}>
       {isLogin() ? (
         <View className={styles.user}>
           <View className={styles.info}>
@@ -53,6 +54,7 @@ const User = () => {
                   renderIcon={
                     <Image src={ImgAddress} className={styles.icon} />
                   }
+                  onClick={() => Router.toMyAddress()}
                 />
                 <Cell
                   title="关于我们"
@@ -69,7 +71,7 @@ const User = () => {
           <Empty type="login" extra={<Login afterLogin={_init} />} />
         </View>
       )}
-    </View>
+    </Container>
   );
 };
 

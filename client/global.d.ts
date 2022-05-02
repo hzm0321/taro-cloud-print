@@ -40,12 +40,17 @@ type CloudFunctionResultSuccess<T> = {
 
 type CloudFunctionResultFail = {
   success: false;
-  message: string;
+  msg: string;
 };
 
 // 云函数返回内容
 declare interface CloudFunctionResult<T> extends TaroGeneral.CallbackResult {
   result: CloudFunctionResultSuccess<T> | CloudFunctionResultFail;
+}
+
+// 云数据库删除返回的内容
+declare interface CloudFunctionResultDelete {
+  removed: number;
 }
 
 // users 表字段
@@ -58,4 +63,17 @@ declare interface UserDb extends CloudDatabase {
   language: string;
   nickName: string;
   province: string;
+}
+
+declare interface Area {
+  code: string;
+  name: string;
+}
+// address 表字段
+declare interface AddressDb extends CloudDatabase {
+  addressDetail: string;
+  area: Area[];
+  consignee: string;
+  phone: string;
+  user_id: string;
 }

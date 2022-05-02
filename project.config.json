@@ -8,7 +8,7 @@
     "urlCheck": true,
     "es6": false,
     "postcss": false,
-    "minified": false,
+    "minified": true,
     "coverView": true,
     "lazyloadPlaceholderEnable": false,
     "preloadBackgroundData": false,

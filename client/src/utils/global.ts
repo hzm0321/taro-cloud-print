@@ -1,4 +1,5 @@
 import Taro from "@tarojs/taro";
+import { Toast } from "@antmjs/vantui";
 import { isArray, isEmpty, result } from "lodash";
 import { isValidArray } from "./base";
 import { DB_USERS } from "../constants/database";
@@ -28,7 +29,7 @@ export const menuHeight = menuButtonInfo.height;
  * 获取当前用户登录信息
  */
 export const getUserInfo = () => {
-  const userInfo = Taro.getStorageSync(USER_INFO_STORAGE);
+  const userInfo = Taro.getStorageSync<UserDb>(USER_INFO_STORAGE);
   if (userInfo) {
     return userInfo;
   } else {
@@ -62,10 +63,7 @@ export const mustLogin = async () => {
   const _isLogin = isLogin();
   if (!_isLogin) {
     try {
-      Taro.showLoading({
-        title: "加载中",
-        mask: true,
-      });
+      Toast.loading("加载中...");
       const loginRes = await wxLogin();
       if (loginRes) {
         const userRes = (await cloud.callFunction({
@@ -79,12 +77,12 @@ export const mustLogin = async () => {
         }
         // 全局数据存入登录状态
         Taro.setStorageSync(USER_INFO_STORAGE, userInfo);
-        Taro.hideLoading();
+        Toast.clear();
         return userInfo;
       }
     } catch (e) {
       console.error(e);
-      Taro.hideLoading();
+      Toast.clear();
       return false;
     }
   }
@@ -100,4 +98,13 @@ export function getResponse<T>(response: CloudFunctionResult<T>) {
     return response.result as CloudFunctionResultSuccess<T>;
   }
   return response.result as CloudFunctionResultFail;
+}
+
+/**
+ * 格式化区域信息
+ * @param data
+ * @returns {*}
+ */
+export function formatArea(data: Area[] = []) {
+  return data?.map((v) => v.name).join("-");
 }

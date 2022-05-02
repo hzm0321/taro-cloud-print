@@ -3,13 +3,14 @@ import { View, Image } from "@tarojs/components";
 import pkg from "@/package";
 import { Cell, CellGroup } from "@antmjs/vantui";
 
+import Container from "../../components/container";
 import styles from "./index.module.less";
 
 interface Props {}
 
 const AboutWe: React.FC<Props> = () => {
   return (
-    <View className={styles.wrapper}>
+    <Container className={styles.wrapper}>
       <View className={styles.logo}>
         <Image src="cloud://test-73xxf.7465-test-73xxf-1302559344/logo/logo.jpg" />
       </View>
@@ -20,7 +21,7 @@ const AboutWe: React.FC<Props> = () => {
       <View className={styles.footer}>
         <View className={styles.desc}>小程序版本&nbsp;V{pkg.version}</View>
       </View>
-    </View>
+    </Container>
   );
 };
 

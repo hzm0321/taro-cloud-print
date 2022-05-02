@@ -4,6 +4,8 @@ export default defineAppConfig({
     "pages/user/index",
     "pages/print-option/index",
     "pages/about-we/index",
+    "pages/my-address/index",
+    "pages/address-detail/index",
   ],
   window: {
     // backgroundTextStyle: "light",

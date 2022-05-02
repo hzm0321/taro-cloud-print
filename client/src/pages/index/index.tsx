@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Router } from "tarojs-router-next";
-import Taro from "@tarojs/taro";
 import { View, Swiper, SwiperItem, Image } from "@tarojs/components";
-import { Button, Grid, GridItem } from "@antmjs/vantui";
+import { Button, Grid, GridItem, Toast } from "@antmjs/vantui";
 
 import ImgCopy from "../../assets/home/copy.svg";
 import ImgDocument from "../../assets/home/document.svg";
@@ -12,8 +11,9 @@ import { querySwiper } from "../../services";
 import { GridItemKeys } from "../../constants/global";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { incrementByAmount, increment } from "../../slices/counterSlice";
-import styles from "./index.module.less";
 import { mustLogin } from "../../utils";
+import Container from "../../components/container";
+import styles from "./index.module.less";
 
 interface SwiperType extends CloudDatabase {
   imgSrc: string;
@@ -31,10 +31,7 @@ const Index = () => {
         setSwiperList(res.data as SwiperType[]);
       })
       .catch(() => {
-        Taro.showToast({
-          title: "轮播图加载失败",
-          icon: "error",
-        });
+        Toast.fail("轮播图加载失败");
       });
   }, []);
 
@@ -49,11 +46,11 @@ const Index = () => {
             Router.toPrintOption();
             break;
           default:
-            Taro.showToast({ title: "此功能暂未开放, 敬请期待", icon: "none" });
+            Toast.show("此功能暂未开放, 敬请期待");
             break;
         }
       } else {
-        Taro.showToast({ title: "此功能需登录后访问", icon: "none" });
+        Toast.show("此功能需登录后访问");
       }
     };
     const items = [
@@ -85,7 +82,7 @@ const Index = () => {
   }, []);
 
   return (
-    <View className={styles.wrapper}>
+    <Container className={styles.wrapper}>
       <View className={styles.header}>
         <Swiper
           className={styles.swiper}
@@ -125,7 +122,7 @@ const Index = () => {
         click2
       </Button>
       {/*<Login />*/}
-    </View>
+    </Container>
   );
 };
 
