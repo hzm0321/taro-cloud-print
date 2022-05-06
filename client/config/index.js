@@ -14,11 +14,7 @@ const config = {
   plugins: ["tarojs-router-next-plugin"],
   defineConstants: {},
   alias: {
-    "@/components": path.resolve(__dirname, "..", "src/components"),
-    "@/assets": path.resolve(__dirname, "..", "src/assets"),
-    "@/utils": path.resolve(__dirname, "..", "src/utils"),
-    "@/package": path.resolve(__dirname, "..", "package.json"),
-    "@/project": path.resolve(__dirname, "..", "project.config.json"),
+    "@": path.resolve(__dirname, "..", "src"),
   },
   copy: {
     patterns: [],

@@ -3,12 +3,13 @@ import Router from "tarojs-router-next";
 import { View } from "@tarojs/components";
 import { Button, Icon, Dialog, Toast } from "@antmjs/vantui";
 
-import AddressCard from "../../components/address-card";
-import Empty from "../../components/empty";
-import { useUserInfo } from "../../hooks";
-import { deleteMyAddress, queryMyAddress } from "../../services";
+import AddressCard from "@/components/address-card";
+import Empty from "@/components/empty";
+import { useUserInfo } from "@/hooks";
+import { deleteMyAddress, queryMyAddress } from "@/services";
+import Container from "@/components/container";
+
 import { BackResult } from "../address-detail";
-import Container from "../../components/container";
 import styles from "./index.module.less";
 
 interface Props {}
@@ -42,20 +43,24 @@ const MyAddress: React.FC<Props> = () => {
       Dialog.confirm({
         title: "是否删除该地址?",
         confirmButtonColor: "#36b7ab",
-      }).then((res) => {
-        if (res === "confirm") {
-          Toast.loading("删除中");
-          deleteMyAddress(addressId)
-            .then((r) => {
-              if (r.result.success) {
-                _init();
-              }
-            })
-            .finally(() => {
-              Toast.clear();
-            });
-        }
-      });
+      })
+        .then((res) => {
+          if (res === "confirm") {
+            Toast.loading("删除中");
+            deleteMyAddress(addressId)
+              .then((r) => {
+                if (r.result.success) {
+                  _init();
+                }
+              })
+              .finally(() => {
+                Toast.clear();
+              });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
     [_init]
   );
@@ -64,7 +69,7 @@ const MyAddress: React.FC<Props> = () => {
     async (address?: AddressDb) => {
       const backResult: BackResult =
         (await Router.toAddressDetail({ data: address })) || {};
-      console.log(backResult);
+      console.log("上一页返回的结果", backResult);
       if (backResult.success) {
         _init();
       }
@@ -76,13 +81,14 @@ const MyAddress: React.FC<Props> = () => {
     <Container className={styles.wrapper}>
       {addresses.length > 0 ? (
         addresses.map((address) => (
-          <AddressCard
-            key={address._id}
-            info={address}
-            handleDelete={() => handleDelete(address._id)}
-            handleEdit={() => handleToAddressDetail(address)}
-            isEdit
-          />
+          <View className={styles.item} key={address._id}>
+            <AddressCard
+              info={address}
+              handleDelete={() => handleDelete(address._id)}
+              handleEdit={() => handleToAddressDetail(address)}
+              isEdit
+            />
+          </View>
         ))
       ) : (
         <View className={styles.empty}>

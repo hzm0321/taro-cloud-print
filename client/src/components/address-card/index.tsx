@@ -1,9 +1,9 @@
 import React, { useCallback } from "react";
 import { View, Image, Text } from "@tarojs/components";
-import ImgAddress from "@/assets/common/address.svg";
 import { Icon } from "@antmjs/vantui";
 
-import { formatArea } from "../../utils";
+import ImgAddress from "@/assets/common/address.svg";
+import { formatArea } from "@/utils";
 
 import styles from "./index.module.less";
 
@@ -38,7 +38,7 @@ const AddressCard: React.FC<Props> = ({
       e.stopPropagation();
       handleEdit && handleEdit(info);
     },
-    [handleEdit]
+    [handleEdit, info]
   );
 
   const handleDeleteClick = useCallback(
@@ -46,7 +46,7 @@ const AddressCard: React.FC<Props> = ({
       e.stopPropagation();
       handleDelete && handleDelete(_id);
     },
-    [handleDelete]
+    [handleDelete, _id]
   );
 
   return (

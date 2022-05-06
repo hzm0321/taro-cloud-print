@@ -26,6 +26,30 @@
 @orange-light: #fffbe8;
 @page-back: @white;
 
+// Font
+@font-size-xs: 20px;
+@font-size-sm: 24px;
+@font-size-md: 28px;
+@font-size-lg: 32px;
+@font-weight-bold: 500;
+@line-height-xs: 28px;
+@line-height-sm: 36px;
+@line-height-md: 40px;
+@line-height-lg: 44px;
+@base-font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB',
+'Microsoft Yahei', sans-serif;
+@price-integer-font-family: Avenir-Heavy, PingFang SC, Helvetica Neue, Arial,
+sans-serif;
+
+// Padding
+@padding-base: 8px;
+@padding-xs: @padding-base * 2;
+@padding-sm: @padding-base * 3;
+@padding-md: @padding-base * 4;
+@padding-lg: @padding-base * 6;
+@padding-xl: @padding-base * 8;
+
 
 // 卡片阴影
 .card-shadow() {
@@ -33,4 +57,11 @@
   background-color: #fff;
   border-radius: 15px;
   box-shadow: 0 15px 10px -15px #e6e6e6;
+}
+
+// 布局
+.wrapper-normal() {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }

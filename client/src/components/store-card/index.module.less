@@ -1,0 +1,53 @@
+@import "../../styles/variable";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  .card-shadow();
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      display: flex;
+      align-items: center;
+
+      .icon {
+        width: 50px;
+        height: 50px;
+      }
+
+      .name {
+        margin-left: 15px;
+      }
+
+      .detail {
+        color: @primary-color;
+        margin-left: 15px;
+        font-size: 25px;
+      }
+    }
+
+    .price {
+      color: @primary-color;
+      font-size: 25px;
+    }
+  }
+
+  .description {
+    color: @page-color-gray-dark;
+    margin-top: 15px;
+    font-size: @font-size-sm;
+  }
+
+  .keywords {
+    margin-top: 20px;
+    display: flex;
+
+    & > view:not(:first-child) {
+      margin-left: 15px;
+    }
+  }
+}

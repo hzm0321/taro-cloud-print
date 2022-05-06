@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Image } from "@tarojs/components";
-import pkg from "@/package";
 import { Cell, CellGroup } from "@antmjs/vantui";
 
+import pkg from "../../../package.json";
 import Container from "../../components/container";
 import styles from "./index.module.less";
 

@@ -52,28 +52,3 @@ declare interface CloudFunctionResult<T> extends TaroGeneral.CallbackResult {
 declare interface CloudFunctionResultDelete {
   removed: number;
 }
-
-// users 表字段
-declare interface UserDb extends CloudDatabase {
-  _openid: string;
-  avatarUrl: string;
-  city: string;
-  country: string;
-  gender: number;
-  language: string;
-  nickName: string;
-  province: string;
-}
-
-declare interface Area {
-  code: string;
-  name: string;
-}
-// address 表字段
-declare interface AddressDb extends CloudDatabase {
-  addressDetail: string;
-  area: Area[];
-  consignee: string;
-  phone: string;
-  user_id: string;
-}

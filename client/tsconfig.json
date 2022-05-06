@@ -17,23 +17,20 @@
     "rootDir": ".",
     "jsx": "react-jsx",
     "jsxFactory": "Taro.createElement",
+    "jsxFragmentFactory": "Fragment",
     "allowJs": true,
     "resolveJsonModule": true,
     "typeRoots": [
       "node_modules/@types"
-    ]
+    ],
+    "paths": {
+      "@/*": ["./src/*"],
+    }
   },
   "include": ["./src", "global.d.ts"],
   "exclude": [
     "node_modules",
     "dist"
   ],
-  "compileOnSave": false,
-  "paths": {
-    "@/components/*": ["./src/components/*"],
-    "@/utils/*": ["./src/utils/*"],
-    "@/assets/*": ["./src/assets/*"],
-    "@/package": ["./package.json"],
-    "@/project": ["./project.config.json"]
-  }
+  "compileOnSave": true,
 }

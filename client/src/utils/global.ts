@@ -1,10 +1,10 @@
 import Taro from "@tarojs/taro";
 import { Toast } from "@antmjs/vantui";
-import { isArray, isEmpty, result } from "lodash";
-import { isValidArray } from "./base";
-import { DB_USERS } from "../constants/database";
-import { USER_INFO_STORAGE } from "../constants/storage";
-import { FUNCTION_LOGIN } from "../constants/function";
+import { isEmpty } from "lodash";
+
+import { USER_INFO_STORAGE } from "@/constants/storage";
+import { FUNCTION_LOGIN } from "@/constants/function";
+import { FILE_CONFIG_MEANING, FILE_CONFIG_TYPES } from "@/constants/common";
 
 const app = Taro.getApp();
 
@@ -107,4 +107,31 @@ export function getResponse<T>(response: CloudFunctionResult<T>) {
  */
 export function formatArea(data: Area[] = []) {
   return data?.map((v) => v.name).join("-");
+}
+
+/**
+ * 格式化价格
+ * @param price
+ * @returns {number}
+ */
+export function formatPrice(price: number) {
+  return price * 100;
+}
+
+/**
+ * 还原价格
+ * @param price
+ * @returns {string}
+ */
+export function inversePrice(price: number) {
+  return (price / 100).toFixed(2);
+}
+
+/**
+ * 获取打印配置的中文意思
+ * @param config
+ * @param type
+ */
+export function getPrintConfigMean(config: string, type: FILE_CONFIG_TYPES) {
+  return FILE_CONFIG_MEANING[type][config];
 }

@@ -1,0 +1,49 @@
+@import "../../styles/variable";
+
+.wrapper {
+  .wrapper-normal();
+  padding-top: 0;
+
+  .tips {
+    position: relative;
+    left: -20px;
+    width: calc(100% + 40px);
+
+    .text {
+      font-size: @font-size-sm;
+    }
+  }
+
+  .form {
+    margin-top: 20px;
+
+    .title {
+      text-align: center;
+      font-size: @font-size-lg;
+      margin-bottom: 10px;
+    }
+
+    .table {
+      text-align: center;
+
+      .header {
+        background-color: @primary-color;
+        color: white;
+        font-size: @font-size-md;
+        padding: 10px 0;
+      }
+
+      .row {
+        color: #000;
+        background-color: #fff;
+        padding: 20px 0;
+        font-size: @font-size-sm;
+      }
+    }
+  }
+
+  .price {
+    color: @page-color-red;
+    font-size: 30px;
+  }
+}

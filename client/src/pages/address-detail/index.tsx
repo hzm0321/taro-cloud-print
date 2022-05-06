@@ -2,12 +2,13 @@ import React, { useCallback, useRef } from "react";
 import Router from "tarojs-router-next";
 import { Button, CellGroup, Form, FormItem, Icon, Toast } from "@antmjs/vantui";
 import { IFormInstanceAPI } from "@antmjs/vantui/types/form";
-import { Input, View } from "@tarojs/components";
+import { Input, View, Textarea } from "@tarojs/components";
+
+import { useRouteData, useUserInfo } from "@/hooks";
+import { addAddress, updateAddress } from "@/services";
+import Container from "@/components/container";
 
 import AreaSelect from "./components/area-select";
-import { useRouteData, useUserInfo } from "../../hooks";
-import { addAddress, updateAddress } from "../../services";
-import Container from "../../components/container";
 import styles from "./index.module.less";
 
 interface Props {}
@@ -26,9 +27,7 @@ const AddressDetail: React.FC<Props> = () => {
       if (err.length === 0) {
         if (userInfo?._id) {
           Toast.loading("保存中");
-
           const updateApi = address ? updateAddress : addAddress;
-
           updateApi({
             ...address,
             ...values,
@@ -94,7 +93,7 @@ const AddressDetail: React.FC<Props> = () => {
             validateTrigger="onBlur"
             valueFormat={(e) => e.detail.value}
           >
-            <Input placeholder="请输入详细地址" />
+            <Textarea placeholder="请输入详细地址" maxlength={40} autoHeight />
           </FormItem>
         </Form>
       </CellGroup>

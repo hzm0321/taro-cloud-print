@@ -3,16 +3,17 @@ import { Router } from "tarojs-router-next";
 import { View, Swiper, SwiperItem, Image } from "@tarojs/components";
 import { Button, Grid, GridItem, Toast } from "@antmjs/vantui";
 
-import ImgCopy from "../../assets/home/copy.svg";
-import ImgDocument from "../../assets/home/document.svg";
-import ImgImage from "../../assets/home/image.svg";
-import ImgTest from "../../assets/home/test.svg";
-import { querySwiper } from "../../services";
-import { GridItemKeys } from "../../constants/global";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { incrementByAmount, increment } from "../../slices/counterSlice";
-import { mustLogin } from "../../utils";
-import Container from "../../components/container";
+import ImgCopy from "@/assets/home/copy.svg";
+import ImgDocument from "@/assets/home/document.svg";
+import ImgImage from "@/assets/home/image.svg";
+import ImgTest from "@/assets/home/test.svg";
+import { querySwiper } from "@/services";
+import { GridItemKeys } from "@/constants/global";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { incrementByAmount, increment } from "@/slices/counterSlice";
+import { mustLogin } from "@/utils";
+import Container from "@/components/container";
+
 import styles from "./index.module.less";
 
 interface SwiperType extends CloudDatabase {

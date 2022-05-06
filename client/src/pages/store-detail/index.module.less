@@ -1,0 +1,54 @@
+@import "../../styles/variable";
+
+.wrapper {
+  .wrapper-normal();
+
+  .info {
+    .card-shadow();
+    display: flex;
+    flex-direction: column;
+
+    .name {
+      display: flex;
+      align-items: center;
+      font-size: @font-size-lg;
+
+      .store-icon {
+        margin-right: 20px;
+        width: 50px;
+        height: 50px;
+      }
+
+      .rate {
+        margin-left: 20px;
+      }
+    }
+
+    .message {
+      color: @page-color-gray-dark;
+      font-size: @font-size-sm;
+      margin-top: 15px;
+
+      & > View:not(:last-child) {
+        margin-bottom: 10px;
+      }
+
+      .icon {
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .map {
+    margin-top: 20px;
+    width: calc(100% + 40px);
+    height: 900px;
+    position: relative;
+    left: -20px;
+  }
+
+  .go {
+    margin-top: 20px;
+  }
+}

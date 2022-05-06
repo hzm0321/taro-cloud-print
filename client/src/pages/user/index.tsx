@@ -8,11 +8,12 @@ import { Cell, CellGroup } from "@antmjs/vantui";
 import ImgOrder from "@/assets/user/order.svg";
 import ImgAbout from "@/assets/user/about.svg";
 import ImgAddress from "@/assets/common/address.svg";
-import Login from "../../components/login";
-import Empty from "../../components/empty";
-import { USER_INFO_STORAGE } from "../../constants/storage";
-import { isLogin } from "../../utils";
-import Container from "../../components/container";
+import Login from "@/components/login";
+import { isLogin } from "@/utils";
+import Empty from "@/components/empty";
+import Container from "@/components/container";
+import { USER_INFO_STORAGE } from "@/constants/storage";
+
 import styles from "./index.module.less";
 
 const User = () => {

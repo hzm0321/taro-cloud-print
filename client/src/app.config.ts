@@ -6,6 +6,8 @@ export default defineAppConfig({
     "pages/about-we/index",
     "pages/my-address/index",
     "pages/address-detail/index",
+    "pages/store-detail/index",
+    "pages/price-list/index",
   ],
   window: {
     // backgroundTextStyle: "light",

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Toast, Dialog } from "@antmjs/vantui";
+import { Dialog, Toast } from "@antmjs/vantui";
 import { View } from "@tarojs/components";
 import { ViewProps } from "@tarojs/components/types/View";
 

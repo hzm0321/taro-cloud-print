@@ -35,6 +35,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "打印选项",
+          "pathName": "pages/print-option/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

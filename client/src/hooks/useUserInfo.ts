@@ -1,6 +1,9 @@
 import { useMemo } from "react";
-import { getUserInfo } from "../utils";
+import { getUserInfo } from "@/utils";
 
-export default () => {
+/**
+ * 返回 userInfo 信息
+ */
+export const useUserInfo = () => {
   return useMemo(() => getUserInfo(), []);
 };

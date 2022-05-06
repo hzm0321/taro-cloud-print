@@ -1,19 +1,25 @@
-import React, { useCallback } from "react";
-import Login from "../../components/login";
-import { View, Swiper, SwiperItem, Image } from "@tarojs/components";
-import Taro from "@tarojs/taro";
+import React, { useEffect, useState } from "react";
+import { queryStore } from "@/services";
+import StoreCard from "@/components/store-card";
+import Container from "@/components/container/index";
+
+import styles from "./index.module.less";
 
 interface Props {}
 
 const PrintOption: React.FC<Props> = () => {
-  const userInfo = Taro.getStorageSync("");
+  const [storeData, setStoreData] = useState<StoreDb>({} as StoreDb);
 
-  const _init = useCallback(() => {}, []);
+  useEffect(() => {
+    queryStore().then((res) => {
+      setStoreData(res.data[0] as StoreDb);
+    });
+  }, []);
 
   return (
-    <View>
-      <Login afterLogin={_init} />
-    </View>
+    <Container className={styles.wrapper}>
+      <StoreCard value={storeData} />
+    </Container>
   );
 };
 
