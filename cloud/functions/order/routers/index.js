@@ -9,12 +9,11 @@ class InitManager {
 
   // 路由自动注册
   static initLoadRouters() {
-
     // 获取api目录的绝对路径
 
     const apiDirectory = `${process.cwd()}/routers`;
 
-   requireDirectory(module, apiDirectory, {
+    requireDirectory(module, apiDirectory, {
       visit(router, path, name) {
         console.log("路由", router);
         if (router instanceof TcbRouter) {
@@ -24,8 +23,11 @@ class InitManager {
             let prefix = path
               .slice(__dirname.length)
               .replace(/\.[^ .]+$/, "")
-              .replace(/\[(.+?)\]/g, params => (`:${params.slice(1, params.length - 1)}`));
-            const end = "index.jsx";
+              .replace(
+                /\[(.+?)\]/g,
+                (params) => `:${params.slice(1, params.length - 1)}`
+              );
+            const end = "index.tsx";
             if (name === end) {
               prefix = prefix.slice(0, prefix.length - end.length + 2);
             }
@@ -33,7 +35,7 @@ class InitManager {
           }
           InitManager.app.use(router.routes());
         }
-      }
+      },
     });
   }
 }

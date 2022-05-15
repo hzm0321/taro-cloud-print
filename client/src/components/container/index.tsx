@@ -9,6 +9,7 @@ const Container: React.FC<Props> = ({ children, ...rest }) => {
   useEffect(() => {
     Toast.setDefaultOptions({
       duration: 3000,
+      forbidClick: true,
     });
   }, []);
 

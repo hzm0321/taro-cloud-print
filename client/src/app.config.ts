@@ -8,6 +8,8 @@ export default defineAppConfig({
     "pages/address-detail/index",
     "pages/store-detail/index",
     "pages/price-list/index",
+    "pages/select-file/index",
+    "pages/file-config/index",
   ],
   window: {
     // backgroundTextStyle: "light",

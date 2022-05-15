@@ -41,7 +41,7 @@ const PriceList: React.FC<Props> = () => {
           wrapable
           scrollable={false}
           text={
-            <View className={styles.text}>
+            <View>
               运费说明: 如果单份订单价格不满
               <Text className={styles.price}>
                 ¥{inversePrice(freightThreshold)}

@@ -14,10 +14,10 @@
   resolved "https://registry.npmmirror.com/@antmjs/iconfont/-/iconfont-1.18.1.tgz#9c8e33560636348238e1436297817662b3469829"
   integrity sha512-QfrkwaEQhCW6KdA5pRSToTnLcK9gvoCr2b0hTXxeVXD8muK+QES+jAGLCdk+NO9QiNQxMXSEmPVQ81nHipyc5g==
 
-"@antmjs/vantui@^1.9.1":
-  version "1.9.1"
-  resolved "https://registry.npmmirror.com/@antmjs/vantui/-/vantui-1.9.1.tgz#5a0d13adfc798f92d8b275559604ab0d91b745a5"
-  integrity sha512-RxOcyWXgANdq/ehQj0yhosUKyzJYMzK9tORCZkYBxY8sxrFCXQyNqRKEAGxyHl8ClC5slvatps8U6pzxt4u0Gg==
+"@antmjs/vantui@^1.9.3":
+  version "1.9.3"
+  resolved "https://registry.npmmirror.com/@antmjs/vantui/-/vantui-1.9.3.tgz#37f57d9ffc5b3af05588c044e1bfeddc45d14117"
+  integrity sha512-1ZSrsb/4lbluEO9HrQBrh/ZujbDi9NROuqJ5t/TAR6/ZbRtEO/++UXq0K8b8iCaoo1/ynsmSwWOEjhR/N468FQ==
   dependencies:
     "@antmjs/iconfont" "1.18.1"
     "@babel/runtime-corejs3" "^7.14.7"

@@ -42,6 +42,20 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "选择文件",
+          "pathName": "pages/select-file/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "文件设置",
+          "pathName": "pages/file-config/index",
+          "query": "fileId=cloud%3A%2F%2Ftest-73xxf.7465-test-73xxf-1302559344%2FprintFile%2F2022-05%2FoQ5_Y5XtPLIpK9DioyxVBP-XrWEE%2Ffile%2F1649131099-%E9%80%BB%E8%BE%91%E5%86%99%E5%9C%A8%E7%88%B6%E7%BB%84%E4%BB%B6.pdf&number=3&tempFilePath=http%3A%2F%2Ftmp%2Fb5bRT5MEuvTLb242bde2336e28de1512ef610a0bb1b8.pdf",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

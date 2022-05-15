@@ -2,7 +2,11 @@ import Taro from "@tarojs/taro";
 import { Toast } from "@antmjs/vantui";
 import { isEmpty } from "lodash";
 
-import { USER_INFO_STORAGE } from "@/constants/storage";
+import {
+  TEMP_DOCUMENT_STORAGE_TYPE,
+  USER_INFO_STORAGE,
+  USER_INFO_STORAGE_TYPE,
+} from "@/constants/storage";
 import { FUNCTION_LOGIN } from "@/constants/function";
 import { FILE_CONFIG_MEANING, FILE_CONFIG_TYPES } from "@/constants/common";
 
@@ -29,7 +33,9 @@ export const menuHeight = menuButtonInfo.height;
  * 获取当前用户登录信息
  */
 export const getUserInfo = () => {
-  const userInfo = Taro.getStorageSync<UserDb>(USER_INFO_STORAGE);
+  const userInfo = Taro.getStorageSync<USER_INFO_STORAGE_TYPE>(
+    USER_INFO_STORAGE
+  );
   if (userInfo) {
     return userInfo;
   } else {
@@ -41,7 +47,9 @@ export const getUserInfo = () => {
  * 检查是否登录
  */
 export const isLogin = () => {
-  return !isEmpty(Taro.getStorageSync(USER_INFO_STORAGE));
+  return !isEmpty(
+    Taro.getStorageSync<USER_INFO_STORAGE_TYPE>(USER_INFO_STORAGE)
+  );
 };
 
 /**
@@ -121,10 +129,12 @@ export function formatPrice(price: number) {
 /**
  * 还原价格
  * @param price
+ * @param isInteger
  * @returns {string}
  */
-export function inversePrice(price: number) {
-  return (price / 100).toFixed(2);
+export function inversePrice(price: number, isInteger?: boolean) {
+  const v = (price / 100).toFixed(2);
+  return isInteger ? parseInt(v) : v;
 }
 
 /**
@@ -134,4 +144,88 @@ export function inversePrice(price: number) {
  */
 export function getPrintConfigMean(config: string, type: FILE_CONFIG_TYPES) {
   return FILE_CONFIG_MEANING[type][config];
+}
+
+/**
+ * 获取当前时间戳
+ */
+export function getTimeInfo() {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  return `${year}-${month}`;
+}
+
+/**
+ * 根据 fileID 获取文件类型
+ * @param fileName
+ * @returns {string}
+ */
+export function getFileType(fileName: string) {
+  return fileName.replace(/.+\./, "").toLowerCase();
+}
+
+/**
+ * 根据 fileID 获取文档类型文件名
+ * @param name
+ */
+export function getFileName(name) {
+  const fileSort = "file";
+  const originName = name.substr(name.indexOf(fileSort) + fileSort.length + 1);
+  const realName = originName.substr(originName.indexOf("-") + 1);
+  return realName;
+}
+
+interface FileMeanProps extends TEMP_DOCUMENT_STORAGE_TYPE {
+  [s: string]: any;
+}
+
+export function getFileMean(file: FileMeanProps) {
+  const number = file[FILE_CONFIG_TYPES.NUMBER];
+  const face = file[FILE_CONFIG_TYPES.FACE];
+  const count = file[FILE_CONFIG_TYPES.COUNT];
+  const realNumber =
+    (face === "double" ? Math.ceil(number / 2) : number) * count;
+  const getMean = (code: FILE_CONFIG_TYPES) => {
+    return getPrintConfigMean(file[code] as string, code);
+  };
+  return `${getMean(FILE_CONFIG_TYPES.TYPE)}/${
+    file[FILE_CONFIG_TYPES.SIZE]
+  }/${getMean(FILE_CONFIG_TYPES.COLOR)}/${getMean(FILE_CONFIG_TYPES.FACE)}/${
+    file[FILE_CONFIG_TYPES.NUMBER]
+  }页/${getMean(FILE_CONFIG_TYPES.BIND)}/${
+    file[FILE_CONFIG_TYPES.COUNT]
+  }份 共${realNumber}张`;
+}
+
+export async function lookFile({
+  fileId,
+  filePath,
+}: {
+  fileId?: string;
+  filePath?: string;
+}) {
+  Toast.loading("文件打开中...");
+  let _tempFilePath: string = "";
+  if (filePath) {
+    _tempFilePath = filePath;
+  } else if (fileId) {
+    const res = await Taro.cloud.downloadFile({ fileID: fileId });
+    if (res.tempFilePath) {
+      _tempFilePath = res.tempFilePath;
+    }
+  }
+  if (_tempFilePath) {
+    Taro.openDocument({
+      filePath: _tempFilePath,
+    })
+      .then(() => {
+        Toast.success("文件打开成功");
+      })
+      .catch(() => {
+        Toast.fail("文件打开失败");
+      });
+  } else {
+    Toast.fail("文件打开失败");
+  }
 }

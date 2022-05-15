@@ -1,5 +1,113 @@
+@import "../../styles/variable";
+
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  padding: 30px 20px;
+  .wrapper-normal();
+
+  .scroll {
+    margin-bottom: 140px;
+
+    .file {
+      display: flex;
+      margin-top: 20px;
+      .card-shadow();
+
+      .order {
+        color: @page-color-gray-dark;
+        margin-right: 20px;
+      }
+
+      .content {
+        flex: 1;
+
+        .info {
+          display: flex;
+
+          .type {
+            width: 90px;
+            height: 90px;
+            margin-right: 20px;
+          }
+
+          .message {
+            .name {
+              font-size: @font-size-lg;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              max-width: 500px;
+            }
+
+            .detail {
+              margin-top: 10px;
+              font-size: @font-size-sm;
+              color: @page-color-gray-dark;
+              max-width: 500px;
+            }
+          }
+        }
+
+        .operate {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .price {
+            color: @page-color-red;
+            font-size: @font-size-sm;
+          }
+
+          .do {
+
+          }
+
+
+        }
+
+        :global {
+          .van-divider {
+            margin: 20px 0;
+          }
+        }
+      }
+    }
+
+    .add {
+      align-items: center;
+      flex-direction: column;
+      color: @page-color-gray-dark;
+    }
+  }
+
+  .empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .footer {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    padding-bottom: calc(env(safe-area-inset-bottom) / 2); // 适配iPhone X以上机型底部横条;
+    padding-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    height: 100px;
+
+    .total-price {
+      display: flex;
+      align-items: center;
+      color: @primary-color;
+    }
+
+    .confirm {
+      background-color: @primary-color;
+      line-height: 100px;
+      color: white;
+      padding: 0 40px;
+    }
+  }
 }

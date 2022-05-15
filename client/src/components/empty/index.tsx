@@ -36,7 +36,9 @@ const EmptyType: {
 };
 
 const Empty: React.FC<Props> = ({ type, imgSrc, text, extra }) => {
-  const [currentEmpty, setCurrentEmpty] = useState<EmptyProps>({});
+  const [currentEmpty, setCurrentEmpty] = useState<EmptyProps>(
+    {} as EmptyProps
+  );
 
   useEffect(() => {
     if (type && EmptyType[type]) {

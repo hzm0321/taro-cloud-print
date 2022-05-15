@@ -1,0 +1,41 @@
+@import '../../styles/variable';
+
+.wrapper {
+  .wrapper-normal();
+
+  .name {
+    .card-shadow();
+    display: flex;
+    align-items: center;
+
+    Image {
+      width: 50px;
+      height: 50px;
+      margin-right: 15px;
+    }
+
+    .size {
+      margin-left: 15px;
+      margin-right: 15px;
+      color: @page-color-gray-dark;
+      font-size: 24px;
+      min-width: 70px;
+    }
+  }
+
+  .config {
+    margin-top: 20px;
+
+    :global {
+      .van-radio-group{
+        & > view:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .confirm {
+    margin-top: 20px;
+  }
+}
