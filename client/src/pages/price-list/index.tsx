@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { View, Text } from "@tarojs/components";
-import { NoticeBar, Row, Col, Toast } from "@antmjs/vantui";
+import { NoticeBar, Row, Col } from "@antmjs/vantui";
 
 import { useRouteData } from "@/hooks";
 import Container from "@/components/container/index";
 import { getPrintConfigMean, inversePrice } from "@/utils";
 import { queryPriceById } from "@/services";
 import { FILE_CONFIG_TYPES } from "@/constants/common";
+import Toast from "@/components/toast";
 
 import styles from "./index.module.less";
 
@@ -26,7 +27,7 @@ const PriceList: React.FC<Props> = () => {
           setPriceList(res.data as PriceDb[]);
         })
         .finally(() => {
-          Toast.clear();
+          Toast.hideLoading();
         });
     }
   }, [_id]);

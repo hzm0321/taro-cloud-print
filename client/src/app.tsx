@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
-import { View } from "@tarojs/components";
-import { Provider } from "react-redux";
-import { Dialog, Toast, Button } from "@antmjs/vantui";
 import Taro from "@tarojs/taro";
+import React, { useEffect } from "react";
+import { Provider } from "react-redux";
 
 import { store } from "./store";
 import { TEST_CLOUD_SERVICE } from "./constants/service-prefix";
 import "./app.less";
-import "./utils/fix"; // 修复lodash在小程序中不能使用问题
+import "./utils/fix";
 
 interface Props {
   children: React.ReactElement;
@@ -23,16 +21,7 @@ const App: React.FC<Props> = ({ children }) => {
     }
   });
 
-  return (
-    <Provider store={store}>
-      <View>
-        <Button type="default">默认按钮</Button>
-        {children}
-        <Toast id="customSelector" />
-        <Dialog id="vanDialog" />
-      </View>
-    </Provider>
-  );
+  return <Provider store={store}>{children}</Provider>;
 };
 
 export default App;

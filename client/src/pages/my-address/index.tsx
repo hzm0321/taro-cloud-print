@@ -1,13 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Router from "tarojs-router-next";
 import { View } from "@tarojs/components";
-import { Button, Icon, Dialog, Toast } from "@antmjs/vantui";
+import { Button, Icon, Dialog } from "@antmjs/vantui";
 
 import AddressCard from "@/components/address-card";
 import Empty from "@/components/empty";
 import { useUserInfo } from "@/hooks";
 import { deleteMyAddress, queryMyAddress } from "@/services";
 import Container from "@/components/container";
+import Toast from "@/components/toast";
+import Modal from "@/components/modal";
 
 import { BackResult } from "../address-detail";
 import styles from "./index.module.less";
@@ -28,7 +30,7 @@ const MyAddress: React.FC<Props> = () => {
           }
         })
         .finally(() => {
-          Toast.clear();
+          Toast.hideLoading();
         });
     }
   }, [userInfo]);
@@ -40,27 +42,23 @@ const MyAddress: React.FC<Props> = () => {
   // 删除地址
   const handleDelete = useCallback(
     (addressId: string) => {
-      Dialog.confirm({
+      Modal({
         title: "是否删除该地址?",
-        confirmButtonColor: "#36b7ab",
-      })
-        .then((res) => {
-          if (res === "confirm") {
-            Toast.loading("删除中");
-            deleteMyAddress(addressId)
-              .then((r) => {
-                if (r.result.success) {
-                  _init();
-                }
-              })
-              .finally(() => {
-                Toast.clear();
-              });
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+        onOk() {
+          Toast.loading("删除中");
+          deleteMyAddress(addressId)
+            .then((r) => {
+              if (r.result.success) {
+                _init();
+              }
+            })
+            .finally(() => {
+              Toast.hideToast();
+            });
+        },
+      }).catch((err) => {
+        console.error(err);
+      });
     },
     [_init]
   );

@@ -52,8 +52,8 @@ const FileConfig: React.FC<Props> = () => {
 
   const editFileData = (useRouteData() || {}) as TEMP_DOCUMENT_STORAGE_TYPE;
   const isEdit = !isEmpty(editFileData); // 是否为编辑状态进入
-  const fileType = editFileData.fileType || getFileType(fileId);
-  const fileName = editFileData.fileName || getFileName(fileId);
+  const fileType = editFileData?.fileType || getFileType(fileId);
+  const fileName = editFileData?.fileName || getFileName(fileId);
 
   const selectData = useMemo(() => {
     const obj = {};
@@ -89,7 +89,7 @@ const FileConfig: React.FC<Props> = () => {
         [FILE_CONFIG_TYPES.COUNT]: 1,
       });
     }
-  }, [isEdit, editFileData]);
+  }, []);
 
   // 预览文件
   const handleLookFile = useCallback(async () => {
@@ -110,7 +110,6 @@ const FileConfig: React.FC<Props> = () => {
 
   // 编辑数据
   const handleEditPrintConfig = (key, value) => {
-    console.log(key, value);
     setPrintConfig({ ...printConfig, [key]: value });
     setIsOpenSheet(false);
   };
@@ -118,7 +117,7 @@ const FileConfig: React.FC<Props> = () => {
   // 确认打印配置
   const handleConfirm = () => {
     let data: TEMP_DOCUMENT_STORAGE_TYPE = {} as TEMP_DOCUMENT_STORAGE_TYPE;
-    if (isEdit) {
+    if (isEdit && editFileData) {
       data = { ...editFileData, ...printConfig };
     } else {
       data = {
@@ -146,7 +145,7 @@ const FileConfig: React.FC<Props> = () => {
         return item;
       });
     } else {
-      documents.push(data);
+      documents.unshift(data);
     }
     Taro.setStorageSync(TEMP_DOCUMENT_STORAGE, documents);
     Taro.eventCenter.trigger(EVENT_UPDATE_FILE);

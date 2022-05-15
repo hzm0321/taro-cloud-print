@@ -26,7 +26,7 @@ const User = () => {
   }, []);
 
   return (
-    <Container className={styles.wrapper}>
+    <Container padding={false} className={styles.wrapper}>
       {isLogin() ? (
         <View className={styles.user}>
           <View className={styles.info}>

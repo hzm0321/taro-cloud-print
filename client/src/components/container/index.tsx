@@ -1,23 +1,41 @@
-import React, { useEffect } from "react";
-import { Dialog, Toast } from "@antmjs/vantui";
+import React, { useMemo } from "react";
+import classnames from "classnames";
 import { View } from "@tarojs/components";
 import { ViewProps } from "@tarojs/components/types/View";
 
-interface Props extends ViewProps {}
+import styles from "./index.module.less";
 
-const Container: React.FC<Props> = ({ children, ...rest }) => {
-  useEffect(() => {
-    Toast.setDefaultOptions({
-      duration: 3000,
-      forbidClick: true,
-    });
-  }, []);
+interface Props extends ViewProps {
+  padding?: boolean;
+  layout?: "horizontal" | "vertical";
+}
+
+const Container: React.FC<Props> = ({
+  padding = true,
+  children,
+  className,
+  layout = "vertical",
+  ...rest
+}) => {
+  const _className = useMemo(() => {
+    const args = {
+      [styles.container]: true,
+    };
+    if (className) {
+      args[className] = true;
+    }
+    if (padding) {
+      args[styles.padding] = true;
+    }
+    if (layout === "vertical") {
+      args[styles.vertical] = true;
+    }
+    return classnames(args);
+  }, [className, padding, layout]);
 
   return (
-    <View {...rest}>
+    <View className={_className} {...rest}>
       {children}
-      <Toast id="vanToast" />
-      <Dialog id="vanDialog" />
     </View>
   );
 };

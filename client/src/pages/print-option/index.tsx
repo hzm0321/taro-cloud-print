@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Router from "tarojs-router-next";
 import { View, ScrollView } from "@tarojs/components";
-import { Button, Dialog, Divider, Icon } from "@antmjs/vantui";
+import { Button, Divider, Icon } from "@antmjs/vantui";
 import Taro from "@tarojs/taro";
 
 import { queryStore } from "@/services";
@@ -14,8 +14,9 @@ import {
   TEMP_DOCUMENT_STORAGE_TYPE,
 } from "@/constants/storage";
 import { getFileMean, lookFile } from "@/utils";
-import { useUpdate } from "@/hooks";
+import { useUpdate, useEventCenter } from "@/hooks";
 import { EVENT_UPDATE_FILE } from "@/constants/events";
+import Modal from "@/components/modal";
 
 import styles from "./index.module.less";
 
@@ -29,6 +30,9 @@ const PrintOption: React.FC<Props> = () => {
     TEMP_DOCUMENT_STORAGE
   );
 
+  // 监听文件本地缓存变化
+  useEventCenter(EVENT_UPDATE_FILE, update);
+
   // 初始化商店数据
   useEffect(() => {
     queryStore().then((res) => {
@@ -36,18 +40,13 @@ const PrintOption: React.FC<Props> = () => {
     });
   }, []);
 
-  // 监听文件更新
-  useEffect(() => {
-    Taro.eventCenter.on(EVENT_UPDATE_FILE, update);
-    return () => {
-      Taro.eventCenter.off(EVENT_UPDATE_FILE);
-    };
-  }, []);
-
-  const updateFiles = useCallback((_files) => {
-    Taro.setStorageSync(TEMP_DOCUMENT_STORAGE, _files);
-    update();
-  }, []);
+  const updateFiles = useCallback(
+    (file) => {
+      Taro.setStorageSync(TEMP_DOCUMENT_STORAGE, file);
+      update();
+    },
+    [update]
+  );
 
   const toSelectFile = useCallback(() => {
     Router.toSelectFile();
@@ -64,14 +63,19 @@ const PrintOption: React.FC<Props> = () => {
   }, []);
 
   // 删除文件
-  const handleDeleteFile = useCallback((file) => {
-    Dialog.confirm({ title: `是否删除文件${file.fileName}` }).then((res) => {
-      if (res === "confirm") {
-        const newFiles = files.filter((item) => item.id !== file.id);
-        updateFiles(newFiles);
-      }
-    });
-  }, []);
+  const handleDeleteFile = useCallback(
+    (file) => {
+      Modal({
+        title: `是否删除文件${file.fileName}`,
+        onOk() {
+          const newFiles = files.filter((item) => item.id !== file.id);
+          debugger;
+          updateFiles(newFiles);
+        },
+      });
+    },
+    [files, updateFiles]
+  );
 
   return (
     <Container className={styles.wrapper}>

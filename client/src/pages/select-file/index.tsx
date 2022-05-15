@@ -1,10 +1,11 @@
 import React, { useCallback } from "react";
 import Taro from "@tarojs/taro";
 import Router, { NavigateType } from "tarojs-router-next";
-import { NoticeBar, Toast } from "@antmjs/vantui";
+import { NoticeBar } from "@antmjs/vantui";
 import { View, Text, Image } from "@tarojs/components";
 
-import Container from "@/components/container/index";
+import Container from "@/components/container";
+import Toast from "@/components/toast";
 import ImgWeChat from "@/assets/brand/wechat.svg";
 import { uploadFileAndAnalyze, uploadFileToCloud } from "@/services/file";
 
@@ -101,7 +102,7 @@ const SelectFile: React.FC<Props> = () => {
   }, []);
 
   return (
-    <Container className={styles.wrapper}>
+    <Container padding={false} className={styles.wrapper}>
       <View className={styles.tips}>
         <NoticeBar
           color="#666"

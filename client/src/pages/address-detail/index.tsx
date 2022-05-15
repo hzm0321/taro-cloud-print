@@ -1,12 +1,13 @@
 import React, { useCallback, useRef } from "react";
 import Router from "tarojs-router-next";
-import { Button, CellGroup, Form, FormItem, Icon, Toast } from "@antmjs/vantui";
+import { Button, CellGroup, Form, FormItem, Icon } from "@antmjs/vantui";
 import { IFormInstanceAPI } from "@antmjs/vantui/types/form";
 import { Input, View, Textarea } from "@tarojs/components";
 
 import { useRouteData, useUserInfo } from "@/hooks";
 import { addAddress, updateAddress } from "@/services";
 import Container from "@/components/container";
+import Toast from "@/components/toast";
 
 import AreaSelect from "./components/area-select";
 import styles from "./index.module.less";
@@ -34,8 +35,9 @@ const AddressDetail: React.FC<Props> = () => {
             user_id: userInfo?._id,
           } as AddressDb).then((res) => {
             if (res.result.success) {
-              Toast.success("保存成功");
-              Router.back({ success: true } as BackResult);
+              Toast.success("保存成功").then(() => {
+                Router.back({ success: true } as BackResult);
+              });
             } else {
               Toast.fail(res.result.msg);
             }
@@ -46,7 +48,7 @@ const AddressDetail: React.FC<Props> = () => {
   }, [userInfo?._id, address]);
 
   return (
-    <Container className={styles.wrapper}>
+    <Container padding={false} className={styles.wrapper}>
       <CellGroup inset title="收货信息">
         <Form ref={formRef} initialValues={address}>
           <FormItem

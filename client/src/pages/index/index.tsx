@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Router } from "tarojs-router-next";
 import { View, Swiper, SwiperItem, Image } from "@tarojs/components";
-import { Button, Grid, GridItem, Toast } from "@antmjs/vantui";
+import { Button, Grid, GridItem } from "@antmjs/vantui";
 
 import ImgCopy from "@/assets/home/copy.svg";
 import ImgDocument from "@/assets/home/document.svg";
@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks";
 import { incrementByAmount, increment } from "@/slices/counterSlice";
 import { mustLogin } from "@/utils";
 import Container from "@/components/container";
+import Toast from "@/components/toast";
 
 import styles from "./index.module.less";
 
@@ -83,7 +84,7 @@ const Index = () => {
   }, []);
 
   return (
-    <Container className={styles.wrapper}>
+    <Container padding={false} className={styles.wrapper}>
       <View className={styles.header}>
         <Swiper
           className={styles.swiper}

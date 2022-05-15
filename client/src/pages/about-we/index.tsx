@@ -10,7 +10,7 @@ interface Props {}
 
 const AboutWe: React.FC<Props> = () => {
   return (
-    <Container className={styles.wrapper}>
+    <Container padding={false} className={styles.wrapper}>
       <View className={styles.logo}>
         <Image src="cloud://test-73xxf.7465-test-73xxf-1302559344/logo/logo.jpg" />
       </View>

@@ -1,5 +1,4 @@
 import Taro from "@tarojs/taro";
-import { Toast } from "@antmjs/vantui";
 import { isEmpty } from "lodash";
 
 import {
@@ -9,6 +8,7 @@ import {
 } from "@/constants/storage";
 import { FUNCTION_LOGIN } from "@/constants/function";
 import { FILE_CONFIG_MEANING, FILE_CONFIG_TYPES } from "@/constants/common";
+import Toast from "@/components/toast";
 
 const app = Taro.getApp();
 
