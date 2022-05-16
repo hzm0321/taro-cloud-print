@@ -30,3 +30,10 @@ declare interface CloudFileParseSuccessData {
   fileId: string;
   pageSize: number;
 }
+
+// 订单价格计算
+declare interface CloudOrderCalcPriceData {
+  totalPrice: number; // 总价格
+  freightPrice: number; // 运费价格
+  filesPrice: number[]; // 每项订单计算后的价格
+}

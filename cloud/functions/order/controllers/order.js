@@ -11,20 +11,24 @@ class Order {
    * @returns {Promise<void>}
    */
   async calcOrderPrice(ctx, next) {
-    const { _req: { event: { cloud, storeId, files } } } = ctx;
+    const {
+      _req: {
+        event: { cloud, storeId, files },
+      },
+    } = ctx;
     const db = cloud.database();
 
     if (!storeId) {
       ctx.body = {
         success: false,
-        data: "缺少storeId"
+        msg: "缺少storeId",
       };
       return;
     }
     if (!Array.isArray(files) || files.length < 1) {
       ctx.body = {
         success: false,
-        data: "请上传打印文件"
+        msg: "请上传打印文件",
       };
       return;
     }
@@ -37,7 +41,7 @@ class Order {
     if (res.data.length > 0) {
       ctx.body = {
         success: true,
-        data: calcOrderPriceUtil(files, res.data)
+        data: calcOrderPriceUtil(files, res.data),
       };
     }
   }
@@ -49,25 +53,29 @@ class Order {
    * @returns {Promise<void>}
    */
   async getOrderDetail(ctx, next) {
-    const { _req: { event: { cloud, orderId, userId } } } = ctx;
+    const {
+      _req: {
+        event: { cloud, orderId, userId },
+      },
+    } = ctx;
     const db = cloud.database();
-    await db.collection(DB_ORDERS)
+    await db
+      .collection(DB_ORDERS)
       .where({
         _id: orderId,
-        user_id: userId
+        user_id: userId,
       })
       .get()
-      .then(res => {
-        debugger
+      .then((res) => {
         ctx.body = {
           success: true,
-          data: res.data[0]
+          data: res.data[0],
         };
       })
-      .catch(err => {
+      .catch((err) => {
         ctx.body = {
           success: false,
-          msg: err
+          msg: err,
         };
       });
   }
@@ -79,7 +87,11 @@ class Order {
    * @returns {Promise<void>}
    */
   async getOrderList(ctx, next) {
-    const { _req: { event: { cloud, orderType, userId } } } = ctx;
+    const {
+      _req: {
+        event: { cloud, orderType, userId },
+      },
+    } = ctx;
     const db = cloud.database();
     const $ = db.command.aggregate;
     const asName = "orderList";
@@ -88,37 +100,43 @@ class Order {
       params.orderType = orderType;
     }
     try {
-      const dbRes = await db.collection(DB_ORDERS).aggregate()
+      const dbRes = await db
+        .collection(DB_ORDERS)
+        .aggregate()
         .lookup({
           from: DB_STORE,
           localField: "store_id",
           foreignField: "_id",
-          as: asName
+          as: asName,
         })
         .replaceRoot({
-          newRoot: $.mergeObjects([$.arrayElemAt([`$${asName}`, 0]), "$$ROOT"])
+          newRoot: $.mergeObjects([$.arrayElemAt([`$${asName}`, 0]), "$$ROOT"]),
         })
         .project({
-          orderList: 0
+          orderList: 0,
         })
         .match(params)
         .end();
 
       ctx.body = {
         success: true,
-        data: dbRes.list
+        data: dbRes.list,
       };
     } catch (err) {
       console.error(err);
       ctx.body = {
         success: false,
-        msg: "数据库执行错误"
+        msg: "数据库执行错误",
       };
     }
   }
 
   async getStoreOrderList(ctx, next) {
-    const { _req: { event: { cloud, storeId, status } } } = ctx;
+    const {
+      _req: {
+        event: { cloud, storeId, status },
+      },
+    } = ctx;
     const db = cloud.database();
     try {
       const data = { store_id: storeId };
@@ -128,19 +146,23 @@ class Order {
       const dbRes = await db.collection(DB_ORDERS).where(data).get();
       ctx.body = {
         success: true,
-        data: dbRes.data
+        data: dbRes.data,
       };
     } catch (err) {
       console.error(err);
       ctx.body = {
         success: false,
-        msg: "数据库执行错误"
+        msg: "数据库执行错误",
       };
     }
   }
 
   async toPrint(ctx, next) {
-    const { _req: { event: { cloud, orderId } } } = ctx;
+    const {
+      _req: {
+        event: { cloud, orderId },
+      },
+    } = ctx;
     const db = cloud.database();
     try {
       const dbRes = await db.collection(DB_ORDERS).doc(orderId).get();
@@ -154,30 +176,34 @@ class Order {
       }
       histories.push({
         status,
-        _updateTime: new Date().getTime()
+        _updateTime: new Date().getTime(),
       });
       const updateRes = await db.collection(DB_ORDERS).doc(orderId).update({
         data: {
           status,
-          histories
-        }
+          histories,
+        },
       });
 
       ctx.body = {
         success: true,
-        data: updateRes.data
+        data: updateRes.data,
       };
     } catch (err) {
       console.error(err);
       ctx.body = {
         success: false,
-        msg: "数据库执行错误"
+        msg: "数据库执行错误",
       };
     }
   }
 
   async toAddDispatcher(ctx, next) {
-    const { _req: { event: { cloud, orderId, dispatcher } } } = ctx;
+    const {
+      _req: {
+        event: { cloud, orderId, dispatcher },
+      },
+    } = ctx;
     const db = cloud.database();
     try {
       const dbRes = await db.collection(DB_ORDERS).doc(orderId).get();
@@ -186,26 +212,25 @@ class Order {
       histories.push({
         status,
         _updateTime: new Date().getTime(),
-        dispatcher
+        dispatcher,
       });
 
       const updateRes = await db.collection(DB_ORDERS).doc(orderId).update({
         data: {
           status,
-          histories
-        }
+          histories,
+        },
       });
 
       ctx.body = {
         success: true,
-        data: updateRes.data
+        data: updateRes.data,
       };
-
     } catch (err) {
       console.error(err);
       ctx.body = {
         success: false,
-        msg: "数据库执行错误"
+        msg: "数据库执行错误",
       };
     }
   }
@@ -217,45 +242,55 @@ class Order {
    * @returns {Promise<void>}
    */
   async confirmGoods(ctx, next) {
-    const { _req: { event: { cloud, orderId } } } = ctx;
+    const {
+      _req: {
+        event: { cloud, orderId },
+      },
+    } = ctx;
     const db = cloud.database();
     try {
       const dbRes = await db.collection(DB_ORDERS).doc(orderId).get();
-      if (![ORDER_STATUS.ING_DISPATCH, ORDER_STATUS.WAIT_PICK].includes(dbRes.data.status)) {
+      if (
+        ![ORDER_STATUS.ING_DISPATCH, ORDER_STATUS.WAIT_PICK].includes(
+          dbRes.data.status
+        )
+      ) {
         ctx.body = {
           success: false,
-          msg: "订单状态错误"
+          msg: "订单状态错误",
         };
         return;
       }
       const _ = db.command;
-      const updateRes = await db.collection(DB_ORDERS).doc(orderId).update({
-        data: {
-          status: ORDER_STATUS.FINISHED,
-          histories: _.push({
+      const updateRes = await db
+        .collection(DB_ORDERS)
+        .doc(orderId)
+        .update({
+          data: {
             status: ORDER_STATUS.FINISHED,
-            _updateTime: new Date().getTime()
-          })
-        }
-      });
+            histories: _.push({
+              status: ORDER_STATUS.FINISHED,
+              _updateTime: new Date().getTime(),
+            }),
+          },
+        });
       if (updateRes.stats.updated === 1) {
         // 记录订单打印状态
         ctx.body = {
           success: true,
-          msg: "订单状态更新成功"
+          msg: "订单状态更新成功",
         };
       } else {
         ctx.body = {
           success: false,
-          msg: "订单状态更新失败"
+          msg: "订单状态更新失败",
         };
       }
-
     } catch (err) {
       console.error(err);
       ctx.body = {
         success: false,
-        msg: "数据库执行错误"
+        msg: "数据库执行错误",
       };
     }
   }
@@ -267,25 +302,30 @@ class Order {
    * @returns {Promise<void>}
    */
   async toPrinting(ctx, next) {
-    const { _req: { event: { cloud, orderId } } } = ctx;
+    const {
+      _req: {
+        event: { cloud, orderId },
+      },
+    } = ctx;
     const db = cloud.database();
     const _ = db.command;
-    const dbRes = await db.collection(DB_ORDERS)
+    const dbRes = await db
+      .collection(DB_ORDERS)
       .where({ _id: orderId, status: ORDER_STATUS.WAIT })
       .update({
         data: {
           status: ORDER_STATUS.PRINTING,
           histories: _.push({
             status: ORDER_STATUS.PRINTING,
-            _updateTime: new Date().getTime()
-          })
-        }
+            _updateTime: new Date().getTime(),
+          }),
+        },
       });
     if (dbRes.stats.updated === 1) {
       // 记录订单打印状态
       ctx.body = {
         success: true,
-        msg: "订单状态更新成功"
+        msg: "订单状态更新成功",
       };
     }
   }
@@ -297,38 +337,42 @@ class Order {
    * @returns {Promise<void>}
    */
   async addTrackNo(ctx, next) {
-    const { _req: { event: { cloud, orderId, trackNo } } } = ctx;
+    const {
+      _req: {
+        event: { cloud, orderId, trackNo },
+      },
+    } = ctx;
     const db = cloud.database();
     const _ = db.command;
-    const dbRes = await db.collection(DB_ORDERS)
+    const dbRes = await db
+      .collection(DB_ORDERS)
       .where({
         _id: orderId,
         status: _.in([ORDER_STATUS.WAIT, ORDER_STATUS.PRINTING]),
       })
       .update({
-      data: {
-        status: ORDER_STATUS.ING_DISPATCH,
-        trackNo,
-        histories: _.push({
+        data: {
           status: ORDER_STATUS.ING_DISPATCH,
           trackNo,
-          _updateTime: new Date().getTime()
-        })
-      }
-    });
+          histories: _.push({
+            status: ORDER_STATUS.ING_DISPATCH,
+            trackNo,
+            _updateTime: new Date().getTime(),
+          }),
+        },
+      });
     if (dbRes.stats.updated === 1) {
       // 记录订单打印状态
       ctx.body = {
         success: true,
-        msg: "快递单号已更新"
+        msg: "快递单号已更新",
       };
     } else {
       ctx.body = {
         success: false,
-        msg: "快递单号更新失败"
+        msg: "快递单号更新失败",
       };
     }
-
   }
 }
 

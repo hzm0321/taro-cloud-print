@@ -24,6 +24,7 @@ import {
   getPrintConfigMean,
   lookFile,
 } from "@/utils";
+import { DocumentConfigProps } from "@/types/file";
 import { FILE_CONFIG_MEANING, FILE_CONFIG_TYPES } from "@/constants/common";
 import { useRouteData, useRouteParams } from "@/hooks";
 import { ToFileConfigProps } from "@/pages/select-file";
@@ -37,23 +38,15 @@ import styles from "./index.module.less";
 
 interface Props {}
 
-export interface FileConfigProps {
-  [FILE_CONFIG_TYPES.TYPE]: keyof typeof FILE_CONFIG_MEANING[FILE_CONFIG_TYPES.TYPE];
-  [FILE_CONFIG_TYPES.SIZE]: keyof typeof FILE_CONFIG_MEANING[FILE_CONFIG_TYPES.SIZE];
-  [FILE_CONFIG_TYPES.COLOR]: keyof typeof FILE_CONFIG_MEANING[FILE_CONFIG_TYPES.COLOR];
-  [FILE_CONFIG_TYPES.FACE]: keyof typeof FILE_CONFIG_MEANING[FILE_CONFIG_TYPES.FACE];
-  [FILE_CONFIG_TYPES.BIND]: keyof typeof FILE_CONFIG_MEANING[FILE_CONFIG_TYPES.BIND];
-  [FILE_CONFIG_TYPES.COUNT]: number;
-}
-
 const FileConfig: React.FC<Props> = () => {
   const params = (useRouteParams() as unknown) as ToFileConfigProps;
-  const { fileId, number, tempFilePath } = params;
+  const { fileId, tempFilePath } = params;
 
   const editFileData = (useRouteData() || {}) as TEMP_DOCUMENT_STORAGE_TYPE;
   const isEdit = !isEmpty(editFileData); // 是否为编辑状态进入
   const fileType = editFileData?.fileType || getFileType(fileId);
   const fileName = editFileData?.fileName || getFileName(fileId);
+  const number = editFileData?.number || params.number;
 
   const selectData = useMemo(() => {
     const obj = {};
@@ -71,8 +64,8 @@ const FileConfig: React.FC<Props> = () => {
   const [isOpenSheet, setIsOpenSheet] = useState(false);
   const [currentSelect, setCurrentSelect] = useState("");
   const [actions, setActions] = useState<ActionSheetItem[]>([]);
-  const [printConfig, setPrintConfig] = useState<FileConfigProps>(
-    {} as FileConfigProps
+  const [printConfig, setPrintConfig] = useState<DocumentConfigProps>(
+    {} as DocumentConfigProps
   ); // 打印配置数据
 
   useEffect(() => {
@@ -87,6 +80,7 @@ const FileConfig: React.FC<Props> = () => {
         [FILE_CONFIG_TYPES.FACE]: "single",
         [FILE_CONFIG_TYPES.BIND]: "none",
         [FILE_CONFIG_TYPES.COUNT]: 1,
+        [FILE_CONFIG_TYPES.NUMBER]: number,
       });
     }
   }, []);

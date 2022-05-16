@@ -1,13 +1,12 @@
 // 用户信息
-import { FileConfigProps } from "@/pages/file-config";
+import { DocumentConfigProps } from "@/types/file";
 
 export const USER_INFO_STORAGE = "userInfo";
 export type USER_INFO_STORAGE_TYPE = UserDb;
 
 // 未提交的临时文档信息
 export const TEMP_DOCUMENT_STORAGE = "tempDocument";
-export type TEMP_DOCUMENT_STORAGE_TYPE = FileConfigProps & {
-  number: number;
+export type TEMP_DOCUMENT_STORAGE_TYPE = DocumentConfigProps & {
   fileId: string;
   fileType: "pdf";
   fileName: string;

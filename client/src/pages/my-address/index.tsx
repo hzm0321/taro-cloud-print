@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Router from "tarojs-router-next";
 import { View } from "@tarojs/components";
-import { Button, Icon, Dialog } from "@antmjs/vantui";
+import { Button, Icon } from "@antmjs/vantui";
 
 import AddressCard from "@/components/address-card";
 import Empty from "@/components/empty";

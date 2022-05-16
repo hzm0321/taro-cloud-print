@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Router from "tarojs-router-next";
-import { View, ScrollView } from "@tarojs/components";
+import { View, ScrollView, Text } from "@tarojs/components";
 import { Button, Divider, Icon } from "@antmjs/vantui";
 import Taro from "@tarojs/taro";
 
-import { queryStore } from "@/services";
+import { queryOrderPrices, queryStore } from "@/services";
 import StoreCard from "@/components/store-card";
 import Container from "@/components/container/index";
 import Empty from "@/components/empty";
@@ -13,10 +13,11 @@ import {
   TEMP_DOCUMENT_STORAGE,
   TEMP_DOCUMENT_STORAGE_TYPE,
 } from "@/constants/storage";
-import { getFileMean, lookFile } from "@/utils";
+import { getFileMean, inversePrice, lookFile } from "@/utils";
 import { useUpdate, useEventCenter } from "@/hooks";
 import { EVENT_UPDATE_FILE } from "@/constants/events";
 import Modal from "@/components/modal";
+import Toast from "@/components/toast";
 
 import styles from "./index.module.less";
 
@@ -24,14 +25,14 @@ interface Props {}
 
 const PrintOption: React.FC<Props> = () => {
   const [storeData, setStoreData] = useState<StoreDb>({} as StoreDb);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [freightPrice, setFreightPrice] = useState(0);
   const update = useUpdate();
 
-  const files = Taro.getStorageSync<TEMP_DOCUMENT_STORAGE_TYPE[]>(
-    TEMP_DOCUMENT_STORAGE
-  );
+  const files = initFiles();
 
   // 监听文件本地缓存变化
-  useEventCenter(EVENT_UPDATE_FILE, update);
+  useEventCenter(EVENT_UPDATE_FILE, () => updateFiles(initFiles()));
 
   // 初始化商店数据
   useEffect(() => {
@@ -40,12 +41,45 @@ const PrintOption: React.FC<Props> = () => {
     });
   }, []);
 
+  // 初始化价格数据
+  useEffect(() => {
+    if (storeData._id) {
+      updateFiles(files);
+    }
+  }, [storeData]);
+
+  function initFiles() {
+    return Taro.getStorageSync<TEMP_DOCUMENT_STORAGE_TYPE[]>(
+      TEMP_DOCUMENT_STORAGE
+    );
+  }
+
+  // 刷新本地 files 缓存数据
   const updateFiles = useCallback(
-    (file) => {
-      Taro.setStorageSync(TEMP_DOCUMENT_STORAGE, file);
-      update();
+    (newFiles) => {
+      Toast.loading("加载中...");
+      // 查询价格
+      queryOrderPrices({ storeId: storeData._id, files: newFiles })
+        .then((res) => {
+          if (res.result.success) {
+            const result = res.result.data;
+            const _files = newFiles.map((file, index) => ({
+              ...file,
+              price: result.filesPrice[index],
+            }));
+            setTotalPrice(result.totalPrice);
+            setFreightPrice(result.freightPrice);
+            Taro.setStorageSync(TEMP_DOCUMENT_STORAGE, _files);
+            update();
+          } else {
+            Toast.fail(res.result.msg);
+          }
+        })
+        .finally(() => {
+          Toast.hideLoading();
+        });
     },
-    [update]
+    [update, storeData]
   );
 
   const toSelectFile = useCallback(() => {
@@ -69,13 +103,16 @@ const PrintOption: React.FC<Props> = () => {
         title: `是否删除文件${file.fileName}`,
         onOk() {
           const newFiles = files.filter((item) => item.id !== file.id);
-          debugger;
           updateFiles(newFiles);
         },
       });
     },
     [files, updateFiles]
   );
+
+  const toPriceList = useCallback(() => {
+    Router.toPriceList({ data: storeData });
+  }, [storeData]);
 
   return (
     <Container className={styles.wrapper}>
@@ -95,7 +132,9 @@ const PrintOption: React.FC<Props> = () => {
                 </View>
                 <Divider />
                 <View className={styles.operate}>
-                  <View className={styles.price}>¥ 1.00</View>
+                  <View className={styles.price}>
+                    ¥ {inversePrice(file.price || 0)}
+                  </View>
                   <View className={styles.do}>
                     <Icon
                       name="eye-o"
@@ -135,7 +174,19 @@ const PrintOption: React.FC<Props> = () => {
         </View>
       )}
       <View className={styles.footer}>
-        <View className={styles["total-price"]}>合计:</View>
+        <View className={styles["total-price"]}>
+          合计:&nbsp;
+          <Text className={styles.price}>¥ {inversePrice(totalPrice)} </Text>
+          {Number(freightPrice) > 0 && (
+            <Text className={styles.freight} onClick={toPriceList}>
+              &nbsp;(不满<Text className={styles.price}>¥19</Text>运费
+              <Text className={styles.price}>
+                ¥{inversePrice(freightPrice, true)}
+              </Text>
+              )
+            </Text>
+          )}
+        </View>
         <View className={styles.confirm}>确认订单</View>
       </View>
     </Container>

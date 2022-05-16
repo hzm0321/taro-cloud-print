@@ -6,53 +6,39 @@ class Toast {
     duration: 2000,
   };
 
+  private generateToast(
+    msg: string,
+    icon: "success" | "error" | "loading" | "none",
+    options?: Taro.showToast.Option
+  ) {
+    return new Promise((resolve) => {
+      return Taro.showToast({
+        title: msg,
+        icon,
+        ...this.defaultOption,
+        ...options,
+      }).then(() => {
+        setTimeout(() => {
+          resolve(true);
+        }, this.defaultOption.duration);
+      });
+    });
+  }
+
   loading(msg: string, options?: Taro.showLoading.Option) {
     return Taro.showLoading({ title: msg, ...this.defaultOption, ...options });
   }
 
   show(msg: string, options?: Taro.showToast.Option) {
-    return new Promise((resolve) => {
-      return Taro.showToast({
-        title: msg,
-        icon: "none",
-        ...this.defaultOption,
-        ...options,
-      }).then(() => {
-        setTimeout(() => {
-          resolve(true);
-        }, this.defaultOption.duration);
-      });
-    });
+    return this.generateToast(msg, "none", options);
   }
 
   success(msg: string, options?: Taro.showToast.Option) {
-    return new Promise((resolve) => {
-      return Taro.showToast({
-        title: msg,
-        icon: "success",
-        ...this.defaultOption,
-        ...options,
-      }).then(() => {
-        setTimeout(() => {
-          resolve(true);
-        }, this.defaultOption.duration);
-      });
-    });
+    return this.generateToast(msg, "success", options);
   }
 
   fail(msg: string, options?: Taro.showLoading.Option) {
-    return new Promise((resolve) => {
-      return Taro.showToast({
-        title: msg,
-        icon: "error",
-        ...this.defaultOption,
-        ...options,
-      }).then(() => {
-        setTimeout(() => {
-          resolve(true);
-        }, this.defaultOption.duration);
-      });
-    });
+    return this.generateToast(msg, "error", options);
   }
 
   hideLoading() {

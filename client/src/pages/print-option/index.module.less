@@ -99,6 +99,23 @@
       display: flex;
       align-items: center;
       color: @primary-color;
+
+      .price {
+        color: @page-color-red;
+        font-size: 36px;
+      }
+
+      .freight {
+        color: @page-color-gray-dark;
+        font-size: @font-size-sm;
+
+        .price {
+          font-size: @font-size-md;
+        }
+        .help {
+          padding: 10px;
+        }
+      }
     }
 
     .confirm {
