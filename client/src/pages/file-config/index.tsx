@@ -153,7 +153,7 @@ const FileConfig: React.FC<Props> = () => {
       <Radio
         name={value}
         renderIcon={
-          <Tag plain={flag} type={flag ? "default" : "primary"}>
+          <Tag size="large" plain={flag} type={flag ? "default" : "primary"}>
             {getPrintConfigMean(value, key)}
           </Tag>
         }

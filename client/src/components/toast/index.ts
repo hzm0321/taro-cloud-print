@@ -26,7 +26,8 @@ class Toast {
   }
 
   loading(msg: string, options?: Taro.showLoading.Option) {
-    return Taro.showLoading({ title: msg, ...this.defaultOption, ...options });
+    const { duration, ...otherDefaultOptions } = this.defaultOption;
+    return Taro.showLoading({ title: msg, ...otherDefaultOptions, ...options });
   }
 
   show(msg: string, options?: Taro.showToast.Option) {

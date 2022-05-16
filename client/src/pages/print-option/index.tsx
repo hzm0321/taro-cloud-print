@@ -114,6 +114,21 @@ const PrintOption: React.FC<Props> = () => {
     Router.toPriceList({ data: storeData });
   }, [storeData]);
 
+  const handleSubmitOrder = async () => {
+    // 提交订单前校验
+    if (files.length === 0) {
+      Toast.fail("请至少添加一个文件");
+      return;
+    }
+    const backResult = await Router.toConfirmOrder({
+      data: {
+        storeData,
+        files,
+        orderType: "document",
+      },
+    });
+  };
+
   return (
     <Container className={styles.wrapper}>
       <StoreCard value={storeData} />
@@ -187,7 +202,9 @@ const PrintOption: React.FC<Props> = () => {
             </Text>
           )}
         </View>
-        <View className={styles.confirm}>确认订单</View>
+        <View className={styles.confirm} onClick={handleSubmitOrder}>
+          确认订单
+        </View>
       </View>
     </Container>
   );

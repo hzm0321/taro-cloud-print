@@ -1,8 +1,8 @@
 // 云数据库包含的基础字段
 declare interface CloudDatabase {
   readonly _id: string;
-  _createTime: Date;
-  _updateTime: Date;
+  _createTime: number;
+  _updateTime: number;
 }
 
 type CloudFunctionResultSuccess<T> = {
@@ -36,4 +36,11 @@ declare interface CloudOrderCalcPriceData {
   totalPrice: number; // 总价格
   freightPrice: number; // 运费价格
   filesPrice: number[]; // 每项订单计算后的价格
+}
+
+// 发起支付的返回内容
+declare interface CloudPaymentData {
+  payment: Taro.requestPayment.Option;
+  outTradeNo: string;
+  totalPrice: number;
 }

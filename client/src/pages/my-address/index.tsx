@@ -5,7 +5,7 @@ import { Button, Icon } from "@antmjs/vantui";
 
 import AddressCard from "@/components/address-card";
 import Empty from "@/components/empty";
-import { useUserInfo } from "@/hooks";
+import { useRouteParams, useUserInfo } from "@/hooks";
 import { deleteMyAddress, queryMyAddress } from "@/services";
 import Container from "@/components/container";
 import Toast from "@/components/toast";
@@ -19,6 +19,9 @@ interface Props {}
 const MyAddress: React.FC<Props> = () => {
   const [addresses, setAddresses] = useState<AddressDb[]>([]);
   const userInfo = useUserInfo();
+  const { readonly } = useRouteParams();
+
+  console.log({ readonly });
 
   const _init = useCallback(() => {
     if (userInfo?._id) {
@@ -75,6 +78,10 @@ const MyAddress: React.FC<Props> = () => {
     [_init]
   );
 
+  const handleAddressClick = useCallback((address) => {
+    Router.back(address);
+  }, []);
+
   return (
     <Container className={styles.wrapper}>
       {addresses.length > 0 ? (
@@ -84,7 +91,8 @@ const MyAddress: React.FC<Props> = () => {
               info={address}
               handleDelete={() => handleDelete(address._id)}
               handleEdit={() => handleToAddressDetail(address)}
-              isEdit
+              onClick={() => handleAddressClick(address)}
+              isEdit={!readonly}
             />
           </View>
         ))

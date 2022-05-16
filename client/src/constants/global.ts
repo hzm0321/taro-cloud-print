@@ -4,3 +4,7 @@ export enum GridItemKeys {
   photo = "photo", // 照片打印
   text = "text", // 实验室
 }
+
+export enum OrderTypes {
+  document = "document",
+}

@@ -157,6 +157,25 @@ export function getTimeInfo() {
 }
 
 /**
+ * 获取格式化后的详细时间
+ * @param date
+ */
+export function getTime(date = new Date()) {
+  const y = date.getFullYear();
+  let m: string | number = date.getMonth() + 1;
+  m = m < 10 ? "0" + m : m;
+  let d: string | number = date.getDate();
+  d = d < 10 ? "0" + d : d;
+  let h: string | number = date.getHours();
+  h = h < 10 ? "0" + h : h;
+  let minute: string | number = date.getMinutes();
+  minute = minute < 10 ? "0" + minute : minute;
+  let second: string | number = date.getSeconds();
+  second = second < 10 ? "0" + second : second;
+  return y + "年" + m + "月" + d + "日 " + h + ":" + minute + ":" + second;
+}
+
+/**
  * 根据 fileID 获取文件类型
  * @param fileName
  * @returns {string}
