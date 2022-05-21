@@ -2,8 +2,9 @@ import React from "react";
 import { View, Image } from "@tarojs/components";
 import { Cell, CellGroup } from "@antmjs/vantui";
 
+import Container from "@/components/container";
+
 import pkg from "../../../package.json";
-import Container from "../../components/container";
 import styles from "./index.module.less";
 
 interface Props {}

@@ -48,6 +48,7 @@ const User = () => {
                   title="我的订单"
                   isLink
                   renderIcon={<Image src={ImgOrder} className={styles.icon} />}
+                  onClick={() => Router.toMyOrders()}
                 />
                 <Cell
                   title="我的地址"

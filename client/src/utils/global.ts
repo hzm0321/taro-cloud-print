@@ -132,7 +132,7 @@ export function formatPrice(price: number) {
  * @param isInteger
  * @returns {string}
  */
-export function inversePrice(price: number, isInteger?: boolean) {
+export function inversePrice(price: number = 0, isInteger?: boolean) {
   const v = (price / 100).toFixed(2);
   return isInteger ? parseInt(v) : v;
 }

@@ -35,3 +35,27 @@ export const FILE_CONFIG_MEANING = {
     A4: "A4",
   },
 };
+
+// 订单状态
+export enum ORDER_STATUS {
+  WAIT = 1, // 待打印
+  PRINTING, // 打印中
+  ING_DISPATCH, // 待收货
+  WAIT_PICK, // 待自提
+  FINISHED, // 已完成
+  ING_REFUND, // 退款中
+  REJECT_REFUND, // 退款驳回
+  FINISHED_REFUND, // 已退款
+}
+
+export const ORDER_STATUS_MEANING = [
+  "待支付",
+  "待打印",
+  "打印中",
+  "待收货",
+  "待自提",
+  "已完成",
+  "退款中",
+  "拒绝退款",
+  "已退款",
+];

@@ -1,3 +1,8 @@
+import { TEMP_DOCUMENT_STORAGE_TYPE } from "@/constants/storage";
+import { OrderTypes } from "@/constants/global";
+import { ORDER_STATUS } from "@/constants/common";
+import { CloudDatabase } from "@/types/function";
+
 /********** users 表字段 **********/
 declare interface UserDb extends CloudDatabase {
   _openid: string; // 用户唯一id
@@ -66,6 +71,7 @@ declare namespace PrintConfig {
   }
 }
 
+/********** prices 表字段 **********/
 declare interface PriceDb extends CloudDatabase {
   store_id: string; // 店铺 id
   color: PrintConfig.ColorType;
@@ -73,4 +79,19 @@ declare interface PriceDb extends CloudDatabase {
   type: PrintConfig.PaperType;
   size: string;
   price: number;
+}
+
+/********** order 表字段 **********/
+declare interface OrderDb extends CloudDatabase {
+  address: AddressDb; // 地址信息
+  body: string; // 支付备注
+  files: TEMP_DOCUMENT_STORAGE_TYPE[]; // 打印的文件信息
+  openid: string; // 用户 openid
+  orderType: OrderTypes; // 订单类型
+  outTradeNo: string; // 订单编号
+  remark: string; // 订单备注
+  status: ORDER_STATUS; // 订单状态
+  store_id: string; // 店铺 id
+  totalFee: number; // 订单价格
+  user_id: string; // 用户 id
 }

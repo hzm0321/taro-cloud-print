@@ -11,6 +11,7 @@ interface Props {
   type?: "file" | "login" | "address";
   text?: string;
   extra?: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
 interface EmptyProps {
@@ -35,7 +36,7 @@ const EmptyType: {
   },
 };
 
-const Empty: React.FC<Props> = ({ type, imgSrc, text, extra }) => {
+const Empty: React.FC<Props> = ({ type, style, imgSrc, text, extra }) => {
   const [currentEmpty, setCurrentEmpty] = useState<EmptyProps>(
     {} as EmptyProps
   );
@@ -47,7 +48,7 @@ const Empty: React.FC<Props> = ({ type, imgSrc, text, extra }) => {
   }, [type]);
 
   return (
-    <View className={styles.wrapper}>
+    <View className={styles.wrapper} style={style}>
       <Image src={imgSrc || currentEmpty.imgSrc} className={styles.img} />
       <Text className={styles.description}>{text || currentEmpty.text}</Text>
       <View className={styles.extra}>{extra}</View>

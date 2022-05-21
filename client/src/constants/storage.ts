@@ -1,4 +1,5 @@
 // 用户信息
+import { UserDb } from "@/types/db";
 import { DocumentConfigProps } from "@/types/file";
 
 export const USER_INFO_STORAGE = "userInfo";

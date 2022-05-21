@@ -1,4 +1,6 @@
 // 云数据库包含的基础字段
+import { OrderDb } from "@/types/db";
+
 declare interface CloudDatabase {
   readonly _id: string;
   _createTime: number;
@@ -43,4 +45,9 @@ declare interface CloudPaymentData {
   payment: Taro.requestPayment.Option;
   outTradeNo: string;
   totalPrice: number;
+}
+
+// 查询我的订单
+declare interface CloudOrderListData extends OrderDb {
+  name: string; // 商店名称
 }
