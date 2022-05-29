@@ -1,7 +1,6 @@
 import Taro from "@tarojs/taro";
 import { DB_PRICES } from "@/constants/database";
 import { FUNCTION_ORDER } from "@/constants/function";
-import { DocumentConfigProps } from "@/types/file";
 
 /**
  * 查询 price 数据 by id

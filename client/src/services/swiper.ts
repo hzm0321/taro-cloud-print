@@ -1,5 +1,6 @@
 import Taro from "@tarojs/taro";
-import { DB_SWIPER } from "../constants/database";
+
+import { DB_SWIPER } from "@/constants/database";
 
 /**
  * 查询轮播图

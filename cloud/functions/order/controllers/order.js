@@ -55,15 +55,15 @@ class Order {
   async getOrderDetail(ctx, next) {
     const {
       _req: {
-        event: { cloud, orderId, userId },
+        event: { cloud, outTradeNo },
       },
     } = ctx;
     const db = cloud.database();
     await db
       .collection(DB_ORDERS)
       .where({
-        _id: orderId,
-        user_id: userId,
+        outTradeNo,
+        openid: cloud.getWXContext().OPENID,
       })
       .get()
       .then((res) => {
@@ -89,14 +89,15 @@ class Order {
   async getOrderList(ctx, next) {
     const {
       _req: {
-        event: { cloud, orderType, userId },
+        event: { cloud, orderType, userId, isUnfinished },
       },
     } = ctx;
     const db = cloud.database();
     const $ = db.command.aggregate;
+    const _ = db.command;
     const asName = "orderList";
     const params = { user_id: userId };
-    if (orderType) {
+    if (orderType && orderType !== "all") {
       params.orderType = orderType;
     }
     try {
@@ -117,13 +118,24 @@ class Order {
         })
         .match(params)
         .end();
+      const unfinishedStatus = [
+        ORDER_STATUS.WAIT,
+        ORDER_STATUS.PRINTING,
+        ORDER_STATUS.ING_DISPATCH,
+      ];
+
+      let list = dbRes.list;
+      // 只返回未完成的订单
+      if (isUnfinished) {
+        list = list.filter((v) => unfinishedStatus.includes(v.status));
+      }
 
       ctx.body = {
         success: true,
-        data: dbRes.list,
+        data: list,
       };
     } catch (err) {
-      console.error(err);
+      console.log(err);
       ctx.body = {
         success: false,
         msg: "数据库执行错误",
@@ -278,7 +290,7 @@ class Order {
         // 记录订单打印状态
         ctx.body = {
           success: true,
-          msg: "订单状态更新成功",
+          data: "订单状态更新成功",
         };
       } else {
         ctx.body = {

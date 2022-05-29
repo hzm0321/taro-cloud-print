@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { View, Text, Image } from "@tarojs/components";
 import { Button, Cell, CellGroup } from "@antmjs/vantui";
+import Router from "tarojs-router-next";
 
 import { ORDER_STATUS_MEANING } from "@/constants/common";
 import FileType from "@/components/file-type";
 import { inversePrice } from "@/utils";
 import ImgStore from "@/assets/common/store.svg";
-import { CloudOrderListData } from "@/types/function";
 
 import styles from "./index.module.less";
 
@@ -22,6 +22,11 @@ const OrderCard: React.FC<Props> = ({ value }) => {
     totalFee,
     name: storeName,
   } = value;
+
+  const toOrderDetail = useCallback(() => {
+    Router.toOrderDetail({ params: { outTradeNo } });
+  }, []);
+
   return (
     <CellGroup className={styles.card}>
       <Cell
@@ -58,7 +63,13 @@ const OrderCard: React.FC<Props> = ({ value }) => {
           </View>
         }
         renderExtra={
-          <Button type="primary" size="small" round className={styles.detail}>
+          <Button
+            type="primary"
+            size="small"
+            round
+            className={styles.detail}
+            onClick={toOrderDetail}
+          >
             订单详情
           </Button>
         }

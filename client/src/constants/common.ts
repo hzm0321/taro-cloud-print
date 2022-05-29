@@ -1,36 +1,55 @@
-// 文件设置类型
-export enum FILE_CONFIG_TYPES {
-  SIZE = "size", // 纸张大小
-  COLOR = "color", // 纸张颜色
-  TYPE = "type", // 纸张类型
-  FACE = "face", // 单双面
-  COUNT = "count", // 打印份数
-  BIND = "bind", // 装订方式
-  NUMBER = "number", // 文件页数
-  PRICE = "price", // 价格
+export namespace PrintConfig {
+  // 纸张颜色
+  enum COLOR {
+    colourless = "colourless",
+    colour = "colour",
+  }
+  // 单双面
+  enum FACE {
+    single = "single",
+    double = "double",
+  }
+  // 纸张类型
+  enum TYPE {
+    normal = "normal",
+    daolin = "daolin",
+  }
+  // 装订类型
+  enum BIND {
+    none = "none",
+    staple = "staple",
+    concave = "concave",
+    concave_title = "concave_title",
+    old = "old",
+  }
+  // 纸张大小
+  enum SIZE {
+    A3 = "A3",
+    A4 = "A4",
+  }
 }
 
 export const FILE_CONFIG_MEANING = {
-  [FILE_CONFIG_TYPES.COLOR]: {
+  color: {
     colourless: "黑白",
     colour: "彩色",
   },
-  [FILE_CONFIG_TYPES.TYPE]: {
+  type: {
     normal: "普通纸",
     daolin: "护眼道林纸",
   },
-  [FILE_CONFIG_TYPES.FACE]: {
+  face: {
     single: "单面",
     double: "双面",
   },
-  [FILE_CONFIG_TYPES.BIND]: {
+  bind: {
     none: "不装订",
     staple: "订书针装订",
     concave: "凹纹封面无标题",
     concave_title: "凹纹封面有标题",
     old: "复古封面无标题",
   },
-  [FILE_CONFIG_TYPES.SIZE]: {
+  size: {
     A3: "A3",
     A4: "A4",
   },
@@ -59,3 +78,19 @@ export const ORDER_STATUS_MEANING = [
   "拒绝退款",
   "已退款",
 ];
+
+// 订单类型
+export enum OrderTypes {
+  document = "document",
+}
+
+export enum FILE_CONFIG_TYPES {
+  SIZE = "size", // 纸张大小
+  COLOR = "color", // 纸张颜色
+  TYPE = "type", // 纸张类型
+  FACE = "face", // 单双面
+  COUNT = "count", // 打印份数
+  BIND = "bind", // 装订方式
+  NUMBER = "number", // 文件页数
+  PRICE = "price", // 价格
+}

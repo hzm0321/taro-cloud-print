@@ -14,7 +14,6 @@ import ImgRemark from "@/assets/common/remark.svg";
 import ImgSuccess from "@/assets/common/success.svg";
 import { useRouteData, useUserInfo } from "@/hooks";
 import { formatArea, getTime, inversePrice } from "@/utils";
-import { OrderTypes } from "@/constants/global";
 import { requestPay } from "@/services/pay";
 import { TEMP_DOCUMENT_STORAGE } from "@/constants/storage";
 import { EVENT_REFRESH_ORDERS } from "@/constants/events";
@@ -23,6 +22,7 @@ import {
   PAY_SUCCESS_ID,
   SHIPPING_REMINDER_ID,
 } from "@/constants/message";
+import { OrderTypes } from "@/constants/common";
 import { addMessage, sendPaySuccessMessage } from "@/services/message";
 
 import styles from "./index.module.less";
@@ -71,6 +71,7 @@ const ConfirmOrder: React.FC<Props> = () => {
       // 发起支付
       requestPay(data)
         .then((res) => {
+          debugger;
           if (res.result.success) {
             const { payment, outTradeNo, totalPrice } = res.result.data;
             payResRef.current = res.result.data;
@@ -97,7 +98,6 @@ const ConfirmOrder: React.FC<Props> = () => {
               Notify.show({ type: "danger", message: "支付失败" });
             }
           }
-          debugger;
         })
         .finally(() => {
           Toast.hideLoading();

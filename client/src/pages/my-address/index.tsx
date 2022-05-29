@@ -21,8 +21,6 @@ const MyAddress: React.FC<Props> = () => {
   const userInfo = useUserInfo();
   const { readonly } = useRouteParams();
 
-  console.log({ readonly });
-
   const _init = useCallback(() => {
     if (userInfo?._id) {
       Toast.loading("加载中...");

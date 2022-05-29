@@ -12,17 +12,17 @@ import Login from "@/components/login";
 import { isLogin } from "@/utils";
 import Empty from "@/components/empty";
 import Container from "@/components/container";
-import { USER_INFO_STORAGE, USER_INFO_STORAGE_TYPE } from "@/constants/storage";
+import { USER_INFO_STORAGE } from "@/constants/storage";
 
 import styles from "./index.module.less";
 
 const User = () => {
-  const [userInfo, setUserInfo] = useState<USER_INFO_STORAGE_TYPE>(() =>
-    Taro.getStorageSync<USER_INFO_STORAGE_TYPE>(USER_INFO_STORAGE)
+  const [userInfo, setUserInfo] = useState<UserDb>(() =>
+    Taro.getStorageSync<UserDb>(USER_INFO_STORAGE)
   );
 
   const _init = useCallback(() => {
-    setUserInfo(Taro.getStorageSync<USER_INFO_STORAGE_TYPE>(USER_INFO_STORAGE));
+    setUserInfo(Taro.getStorageSync<UserDb>(USER_INFO_STORAGE));
   }, []);
 
   return (

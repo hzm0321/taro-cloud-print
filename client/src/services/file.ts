@@ -1,6 +1,6 @@
 import Taro from "@tarojs/taro";
 import { getTimeInfo } from "@/utils";
-import { USER_INFO_STORAGE, USER_INFO_STORAGE_TYPE } from "@/constants/storage";
+import { USER_INFO_STORAGE } from "@/constants/storage";
 import { FUNCTION_FILE } from "@/constants/function";
 
 /**
@@ -10,9 +10,7 @@ import { FUNCTION_FILE } from "@/constants/function";
  */
 export const uploadFileToCloud = (data: any = {}) => {
   const { fileType, fileTime, fileName, filePath } = data;
-  const { _openid: openId } = Taro.getStorageSync<USER_INFO_STORAGE_TYPE>(
-    USER_INFO_STORAGE
-  );
+  const { _openid: openId } = Taro.getStorageSync<UserDb>(USER_INFO_STORAGE);
   const cloudPath = `printFile/${getTimeInfo()}/${openId}/${fileType}/${fileTime}-${fileName}`;
 
   return Taro.cloud.uploadFile({

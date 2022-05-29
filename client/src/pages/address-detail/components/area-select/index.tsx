@@ -5,7 +5,7 @@ import { Popup, Area } from "@antmjs/vantui";
 import { areaList } from "@vant/area-data";
 import { FormItemProps } from "@tarojs/components/types/common";
 
-import { formatArea } from "../../../../utils";
+import { formatArea } from "@/utils";
 
 interface Props extends FormItemProps {
   value?: Area[];

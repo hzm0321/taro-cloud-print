@@ -1,7 +1,7 @@
 // const cloud = require("wx-server-sdk");
 // cloud.init();
 // const db = cloud.database();
-const { TEST_ENV } = require("../constants/env");
+const { PAY_ENV } = require("../constants/env");
 const { MCH_Id } = require("../constants/common");
 const { DB_ORDERS } = require("../constants/database");
 const mchId = MCH_Id;
@@ -40,7 +40,7 @@ class Pay {
     const body = "打印订单";
     const tradeType = "JSAPI";
     let totalPrice = 0;
-    const envId = TEST_ENV;
+    const envId = PAY_ENV;
 
     // 计算价格
     const priceRes = await cloud.callFunction({
@@ -82,28 +82,28 @@ class Pay {
       functionName: "paySuccess",
     });
 
-    // 记录预支付交易单信息
-    const dbRes = await db.collection(DB_ORDERS).add({
-      data: {
-        openid,
-        store_id: storeId,
-        user_id: userId,
-        files,
-        body,
-        outTradeNo,
-        totalFee: totalPrice, // 支付的价格 单位/分
-        status: 0,
-        orderType,
-        address,
-        remark,
-        _createTime: Date.now(),
-        _updateTime: Date.now(),
-      },
-    });
-
-    console.log(dbRes);
+    console.log(result);
 
     if (result.payment) {
+      // 记录预支付交易单信息
+      const dbRes = await db.collection(DB_ORDERS).add({
+        data: {
+          openid,
+          store_id: storeId,
+          user_id: userId,
+          files,
+          body,
+          outTradeNo,
+          totalFee: totalPrice, // 支付的价格 单位/分
+          status: 0,
+          orderType,
+          address,
+          remark,
+          _createTime: Date.now(),
+          _updateTime: Date.now(),
+        },
+      });
+      console.log(dbRes);
       ctx.body = {
         success: true,
         data: { ...result, outTradeNo, totalPrice, orderId: dbRes._id },

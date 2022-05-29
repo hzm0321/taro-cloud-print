@@ -19,7 +19,7 @@ export interface ToFileConfigProps {
   tempFilePath: string;
 }
 
-const MAX_SIZE = 50; // 支持文件上传的最大大小
+const MAX_SIZE = 50; // 支持文件上传的最大大小 单位/m
 
 const SelectFile: React.FC<Props> = () => {
   // 文件后缀名 大小检查

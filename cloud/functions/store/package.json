@@ -1,0 +1,16 @@
+{
+  "name": "store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tcb-router": "^1.1.2",
+    "wx-server-sdk": "~2.6.1",
+    "moment": "2.29.1"
+  }
+}

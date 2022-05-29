@@ -1,11 +1,7 @@
 import Taro from "@tarojs/taro";
 import { isEmpty } from "lodash";
 
-import {
-  TEMP_DOCUMENT_STORAGE_TYPE,
-  USER_INFO_STORAGE,
-  USER_INFO_STORAGE_TYPE,
-} from "@/constants/storage";
+import { USER_INFO_STORAGE } from "@/constants/storage";
 import { FUNCTION_LOGIN } from "@/constants/function";
 import { FILE_CONFIG_MEANING, FILE_CONFIG_TYPES } from "@/constants/common";
 import Toast from "@/components/toast";
@@ -33,9 +29,7 @@ export const menuHeight = menuButtonInfo.height;
  * 获取当前用户登录信息
  */
 export const getUserInfo = () => {
-  const userInfo = Taro.getStorageSync<USER_INFO_STORAGE_TYPE>(
-    USER_INFO_STORAGE
-  );
+  const userInfo = Taro.getStorageSync<UserDb>(USER_INFO_STORAGE);
   if (userInfo) {
     return userInfo;
   } else {
@@ -47,9 +41,7 @@ export const getUserInfo = () => {
  * 检查是否登录
  */
 export const isLogin = () => {
-  return !isEmpty(
-    Taro.getStorageSync<USER_INFO_STORAGE_TYPE>(USER_INFO_STORAGE)
-  );
+  return !isEmpty(Taro.getStorageSync<UserDb>(USER_INFO_STORAGE));
 };
 
 /**
@@ -176,6 +168,34 @@ export function getTime(date = new Date()) {
 }
 
 /**
+ * 格式化日期
+ * @param fmt
+ * @param date
+ */
+export function dateFormat(fmt: string, date: Date) {
+  let ret;
+  const opt = {
+    "Y+": date.getFullYear().toString(), // 年
+    "m+": (date.getMonth() + 1).toString(), // 月
+    "d+": date.getDate().toString(), // 日
+    "H+": date.getHours().toString(), // 时
+    "M+": date.getMinutes().toString(), // 分
+    "S+": date.getSeconds().toString(), // 秒
+    // 有其他格式化字符需求可以继续添加，必须转化成字符串
+  };
+  for (let k in opt) {
+    ret = new RegExp("(" + k + ")").exec(fmt);
+    if (ret) {
+      fmt = fmt.replace(
+        ret[1],
+        ret[1].length == 1 ? opt[k] : opt[k].padStart(ret[1].length, "0")
+      );
+    }
+  }
+  return fmt;
+}
+
+/**
  * 根据 fileID 获取文件类型
  * @param fileName
  * @returns {string}
@@ -195,7 +215,7 @@ export function getFileName(name) {
   return realName;
 }
 
-interface FileMeanProps extends TEMP_DOCUMENT_STORAGE_TYPE {
+interface FileMeanProps extends TempDocumentStorageType {
   [s: string]: any;
 }
 

@@ -1,6 +1,6 @@
 import Taro from "@tarojs/taro";
 
-import { FUNCTION_USERINFO } from "../constants/function";
+import { FUNCTION_USERINFO } from "@/constants/function";
 
 /**
  * 查询我的地址

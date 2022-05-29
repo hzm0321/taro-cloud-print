@@ -1,0 +1,103 @@
+@import "../../styles/variable";
+
+.wrapper {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .status {
+      font-size: 40px;
+      padding-left: 15px;
+    }
+
+    .no {
+      color: @page-color-gray-dark;
+    }
+  }
+
+  .card {
+    .card-shadow();
+    margin-bottom: 20px;
+
+    .title {
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      margin-right: 20px;
+    }
+
+    .price {
+      color: @page-color-red;
+    }
+
+    .file {
+      padding-left: 0;
+      padding-right: 0;
+
+      .file-icon {
+        width: 50px;
+        height: 50px;
+        margin-right: 15px;
+      }
+
+      .name {
+        font-size: @font-size-lg;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .detail {
+        font-size: @font-size-sm;
+        color: @page-color-gray-dark;
+      }
+    }
+
+    .steps {
+      .status {
+        color: black;
+      }
+      .desc {
+        margin-top: 5px;
+        font-size: @font-size-sm;
+      }
+    }
+
+    .other {
+      .cell {
+        padding-left: 0;
+
+        .address {
+          max-width: 400px;
+
+          .name {
+            font-size: @font-size-md;
+          }
+
+          .detail {
+            color: @page-color-gray-dark;
+            font-size: @font-size-sm;
+          }
+        }
+      }
+    }
+  }
+
+  .operation {
+    position: fixed;
+    margin-left: -20px;
+    width: 100vw;
+    bottom: 0;
+    background-color: @primary-color;
+    height: 100px;
+    padding-bottom: calc(env(safe-area-inset-bottom) / 2); // 适配iPhone X以上机型底部横条
+  }
+
+  .placeholder {
+    height: 120px;
+  }
+}

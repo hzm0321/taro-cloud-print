@@ -9,7 +9,6 @@ exports.main = async (event, context) => {
   const { msgType, subMsg, templateId, orderId } = event;
 
   const wxContext = cloud.getWXContext();
-  debugger;
 
   let msgData = {};
   if (msgType === PAY_SUCCESS) {
@@ -21,7 +20,6 @@ exports.main = async (event, context) => {
       data: subMsg,
       // miniprogramState: 'developer' //小程序类型，默认为正式版，这里设置为开发者模式
     };
-    debugger;
   } else if (msgType === SHIPPING_REMINDER) {
     // 发货通知
   } else {

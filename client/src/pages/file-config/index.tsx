@@ -24,15 +24,11 @@ import {
   getPrintConfigMean,
   lookFile,
 } from "@/utils";
-import { DocumentConfigProps } from "@/types/file";
 import { FILE_CONFIG_MEANING, FILE_CONFIG_TYPES } from "@/constants/common";
 import { useRouteData, useRouteParams } from "@/hooks";
 import { ToFileConfigProps } from "@/pages/select-file";
 import { EVENT_UPDATE_FILE } from "@/constants/events";
-import {
-  TEMP_DOCUMENT_STORAGE,
-  TEMP_DOCUMENT_STORAGE_TYPE,
-} from "@/constants/storage";
+import { TEMP_DOCUMENT_STORAGE } from "@/constants/storage";
 
 import styles from "./index.module.less";
 
@@ -42,7 +38,7 @@ const FileConfig: React.FC<Props> = () => {
   const params = (useRouteParams() as unknown) as ToFileConfigProps;
   const { fileId, tempFilePath } = params;
 
-  const editFileData = (useRouteData() || {}) as TEMP_DOCUMENT_STORAGE_TYPE;
+  const editFileData = (useRouteData() || {}) as TempDocumentStorageType;
   const isEdit = !isEmpty(editFileData); // 是否为编辑状态进入
   const fileType = editFileData?.fileType || getFileType(fileId);
   const fileName = editFileData?.fileName || getFileName(fileId);
@@ -110,7 +106,7 @@ const FileConfig: React.FC<Props> = () => {
 
   // 确认打印配置
   const handleConfirm = () => {
-    let data: TEMP_DOCUMENT_STORAGE_TYPE = {} as TEMP_DOCUMENT_STORAGE_TYPE;
+    let data: TempDocumentStorageType = {} as TempDocumentStorageType;
     if (isEdit && editFileData) {
       data = { ...editFileData, ...printConfig };
     } else {
@@ -125,7 +121,7 @@ const FileConfig: React.FC<Props> = () => {
       };
     }
     // 写入本地缓存
-    let documents = Taro.getStorageSync<TEMP_DOCUMENT_STORAGE_TYPE[]>(
+    let documents = Taro.getStorageSync<TempDocumentStorageType[]>(
       TEMP_DOCUMENT_STORAGE
     );
     if (!documents) {

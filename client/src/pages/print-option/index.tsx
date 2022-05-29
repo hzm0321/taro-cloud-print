@@ -9,10 +9,7 @@ import StoreCard from "@/components/store-card";
 import Container from "@/components/container/index";
 import Empty from "@/components/empty";
 import FileType from "@/components/file-type";
-import {
-  TEMP_DOCUMENT_STORAGE,
-  TEMP_DOCUMENT_STORAGE_TYPE,
-} from "@/constants/storage";
+import { TEMP_DOCUMENT_STORAGE } from "@/constants/storage";
 import { getFileMean, inversePrice, lookFile } from "@/utils";
 import { useUpdate, useEventCenter } from "@/hooks";
 import { EVENT_UPDATE_FILE } from "@/constants/events";
@@ -43,13 +40,13 @@ const PrintOption: React.FC<Props> = () => {
 
   // 初始化价格数据
   useEffect(() => {
-    if (storeData._id) {
+    if (storeData._id && files.length) {
       updateFiles(files);
     }
   }, [storeData]);
 
   function initFiles() {
-    return Taro.getStorageSync<TEMP_DOCUMENT_STORAGE_TYPE[]>(
+    return Taro.getStorageSync<TempDocumentStorageType[]>(
       TEMP_DOCUMENT_STORAGE
     );
   }

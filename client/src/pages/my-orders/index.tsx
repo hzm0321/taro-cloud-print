@@ -4,12 +4,11 @@ import { Tabs, Tab } from "@antmjs/vantui";
 
 import Container from "@/components/container";
 import Toast from "@/components/toast";
-import { ORDER_STATUS, ORDER_STATUS_MEANING } from "@/constants/common";
+import { ORDER_STATUS_MEANING, ORDER_STATUS } from "@/constants/common";
 import { queryMyOrders } from "@/services";
-import { useUserInfo } from "@/hooks";
+import { useRouteParams, useUserInfo } from "@/hooks";
 import OrderCard from "@/components/order-card";
 import Empty from "@/components/empty";
-import { CloudOrderListData } from "@/types/function";
 import { systemInfo } from "@/utils";
 
 import styles from "./index.module.less";
@@ -20,14 +19,23 @@ const MyOrders: React.FC<Props> = () => {
   const [orders, setOrders] = useState<CloudOrderListData[]>([]);
   const userInfo = useUserInfo();
   const [isOrderRefresh, setIsOrderRefresh] = useState(false); // 订单刷新状态
+  const [tabActive, setTabActive] = useState<number>(0);
+
+  const { tabsStatus } = useRouteParams();
 
   useEffect(() => {
-    init();
+    _init();
+    if (tabsStatus) {
+      const index = tabList.findIndex(
+        (tab) => tab.name === ORDER_STATUS.FINISHED
+      );
+      setTabActive(index);
+    }
   }, []);
 
-  function init() {
-    Toast.loading("加载中...");
+  function _init() {
     if (userInfo?._id) {
+      Toast.loading("加载中...");
       queryMyOrders({ userId: userInfo._id })
         .then((res) => {
           if (res.result.success) {
@@ -45,7 +53,7 @@ const MyOrders: React.FC<Props> = () => {
 
   const onRefreshOrders = () => {
     setIsOrderRefresh(true);
-    !isOrderRefresh && init();
+    !isOrderRefresh && _init();
   };
 
   const tabList = [
@@ -53,15 +61,22 @@ const MyOrders: React.FC<Props> = () => {
     ORDER_STATUS.PRINTING,
     ORDER_STATUS.ING_DISPATCH,
     ORDER_STATUS.FINISHED,
-  ].map((v) => ({
-    title: ORDER_STATUS_MEANING[v],
-    name: v,
-    order: orders.filter((o) => o.status === v) || [],
+  ].map((status) => ({
+    title: ORDER_STATUS_MEANING[status],
+    name: status,
+    order: orders.filter((o) => o.status === status) || [],
   }));
 
   return (
     <Container padding={false} className={styles.wrapper}>
-      <Tabs animated>
+      <Tabs
+        animated
+        sticky
+        active={tabActive}
+        onChange={(e) => {
+          setTabActive((e.detail.index as unknown) as ORDER_STATUS);
+        }}
+      >
         {tabList.map(({ title, name, order }) => (
           <Tab title={title} key={name}>
             <ScrollView

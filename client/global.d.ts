@@ -25,3 +25,9 @@ declare namespace NodeJS {
       | "jd";
   }
 }
+
+declare interface CloudDatabase {
+  readonly _id: string;
+  _createTime: number;
+  _updateTime: number;
+}

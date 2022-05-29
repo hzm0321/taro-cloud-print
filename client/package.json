@@ -31,7 +31,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@antmjs/vantui": "^1.9.3",
+    "@antmjs/vantui": "^1.9.5",
     "@babel/runtime": "^7.7.7",
     "@reduxjs/toolkit": "^1.8.1",
     "@tarojs/cli": "3.4.7",

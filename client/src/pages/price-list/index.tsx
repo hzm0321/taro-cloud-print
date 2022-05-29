@@ -6,7 +6,6 @@ import { useRouteData } from "@/hooks";
 import Container from "@/components/container/index";
 import { getPrintConfigMean, inversePrice } from "@/utils";
 import { queryPriceById } from "@/services";
-import { FILE_CONFIG_TYPES } from "@/constants/common";
 import Toast from "@/components/toast";
 
 import styles from "./index.module.less";

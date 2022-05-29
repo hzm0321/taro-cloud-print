@@ -2,7 +2,7 @@ import React from "react";
 import { isFunction } from "lodash";
 import { Button } from "@antmjs/vantui";
 
-import { mustLogin } from "../../utils";
+import { mustLogin } from "@/utils";
 
 interface Props {
   afterLogin: () => void;

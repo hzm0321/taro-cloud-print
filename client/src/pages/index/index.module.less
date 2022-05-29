@@ -1,3 +1,5 @@
+@import "../../styles/variable";
+
 .wrapper {
 
   .header {
@@ -29,6 +31,72 @@
       .van-grid-item__text {
         margin-top: 30px;
       }
+    }
+  }
+
+  .content {
+    margin-top: 20px;
+    background-color: #fff;
+    padding-bottom: 20px;
+
+    .orders {
+
+      .menu {
+        width: 200px;
+        margin-left: -5px;
+        border-top-left-radius: 30px;
+        //box-shadow: 0 2px 12px rgba(100,101,102,.12);
+        box-shadow: none;
+        padding: 10px 0 0 20px;
+
+        :global {
+          .van-dropdown-menu__item {
+            background-color: @primary-color-bg;
+            border-radius: 30px;
+            height: 60px;
+
+            .van-dropdown-menu__title {
+              //padding-left: 0;
+              margin-left: -10px;
+
+              &:after {
+                color: @primary-color;
+              }
+
+              .van-ellipsis {
+                color: @primary-color;
+              }
+            }
+          }
+
+          .van-cell {
+            padding-left: 30px;
+          }
+        }
+      }
+
+      .tabs {
+        padding: 0 20px;
+
+        .tab {
+          & > view {
+            margin-bottom: 20px;
+          }
+        }
+
+        :global {
+          .van-tabs__line {
+            display: none;
+          }
+
+          .van-ellipsis {
+            text-align: left;
+            width: 200px;
+            flex: none !important;
+          }
+        }
+      }
+
     }
   }
 }

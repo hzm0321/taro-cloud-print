@@ -9,9 +9,10 @@ import styles from "./index.module.less";
 
 interface Props {
   value: StoreDb;
+  readonly?: boolean;
 }
 
-const StoreCard: React.FC<Props> = ({ value = {} }) => {
+const StoreCard: React.FC<Props> = ({ value = {}, readonly }) => {
   const { name, description, keywords = [] } = value;
 
   const toDetail = useCallback(() => {
@@ -32,9 +33,11 @@ const StoreCard: React.FC<Props> = ({ value = {} }) => {
             详情
           </Text>
         </View>
-        <View className={styles.price} onClick={toPrice}>
-          价格详情
-        </View>
+        {!readonly && (
+          <View className={styles.price} onClick={toPrice}>
+            价格详情
+          </View>
+        )}
       </View>
       <View className={styles.description}>{description}</View>
       <View className={styles.keywords}>

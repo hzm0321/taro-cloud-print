@@ -12,6 +12,7 @@ export default defineAppConfig({
     "pages/file-config/index",
     "pages/confirm-order/index",
     "pages/my-orders/index",
+    "pages/order-detail/index",
   ],
   window: {
     // backgroundTextStyle: "light",

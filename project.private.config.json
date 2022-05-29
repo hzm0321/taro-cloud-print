@@ -67,7 +67,14 @@
         {
           "name": "我的订单",
           "pathName": "pages/my-orders/index",
-          "query": "",
+          "query": "tabsStatus=5",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "订单详情",
+          "pathName": "pages/order-detail/index",
+          "query": "outTradeNo=Pzlap650vobd1653058164",
           "launchMode": "default",
           "scene": null
         }

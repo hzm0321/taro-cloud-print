@@ -1,11 +1,5 @@
 // 云数据库包含的基础字段
-import { OrderDb } from "@/types/db";
-
-declare interface CloudDatabase {
-  readonly _id: string;
-  _createTime: number;
-  _updateTime: number;
-}
+/// <reference path="./db.d.ts" />
 
 type CloudFunctionResultSuccess<T> = {
   success: true;
