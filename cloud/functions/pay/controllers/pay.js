@@ -4,6 +4,7 @@
 const { PAY_ENV } = require("../constants/env");
 const { MCH_Id } = require("../constants/common");
 const { DB_ORDERS } = require("../constants/database");
+const { getTime } = require("../utils/common");
 const mchId = MCH_Id;
 
 // 测试人员的 openId
@@ -34,8 +35,9 @@ class Pay {
     const db = cloud.database();
     // 订单号
     const nonceStr = Math.random().toString(36).substr(2, 13);
-    const timeStamp = parseInt(Date.now() / 1000) + "";
-    const outTradeNo = `P${nonceStr}${timeStamp}`;
+    const timeStamp = getTime() + "";
+    const _random = Math.floor(Math.random() * 4000 + 1000);
+    const outTradeNo = `P${timeStamp}${_random}`;
     // 描述
     const body = "打印订单";
     const tradeType = "JSAPI";
