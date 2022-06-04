@@ -10,7 +10,7 @@ import {
   Tab,
   Tabs,
 } from "@antmjs/vantui";
-import { useTabItemTap } from "@tarojs/taro";
+import Taro, { usePullDownRefresh, useTabItemTap } from "@tarojs/taro";
 
 import ImgCopy from "@/assets/home/copy.svg";
 import ImgDocument from "@/assets/home/document.svg";
@@ -18,7 +18,7 @@ import ImgImage from "@/assets/home/image.svg";
 import ImgTest from "@/assets/home/test.svg";
 import { queryMyOrders, querySwiper } from "@/services";
 import { GridItemKeys } from "@/constants/global";
-import { useUpdate, useUserInfo } from "@/hooks";
+import { useUserInfo } from "@/hooks";
 import { isLogin, mustLogin } from "@/utils";
 import Container from "@/components/container";
 import Toast from "@/components/toast";
@@ -43,7 +43,11 @@ const Index = () => {
   const [orders, setOrders] = useState<CloudOrderListData[]>([]);
   const [currentMenuItem, setCurrentMenuItem] = useState(MenuItems.all);
   const userInfo = useUserInfo();
-  const update = useUpdate();
+
+  usePullDownRefresh(() => {
+    _initOrders();
+    Taro.stopPullDownRefresh();
+  });
 
   useEffect(() => {
     querySwiper()
@@ -64,29 +68,34 @@ const Index = () => {
     if (userInfo?._id) {
       _initOrders();
     }
-    update();
   });
 
   // 请求订单数据
   const _initOrders = () => {
-    if (userInfo?._id) {
-      Toast.loading("加载中...");
-      queryMyOrders({
-        userId: userInfo._id,
-        orderType: currentMenuItem,
-        isUnfinished: true,
-      })
-        .then((res) => {
-          if (res.result.success) {
-            setOrders(res.result.data);
-          } else {
-            Toast.fail(res.result.msg);
-          }
+    return new Promise((resolve, reject) => {
+      if (userInfo?._id) {
+        Toast.loading("加载中...");
+        return queryMyOrders({
+          userId: userInfo._id,
+          orderType: currentMenuItem,
+          isUnfinished: true,
         })
-        .finally(() => {
-          Toast.hideLoading();
-        });
-    }
+          .then((res) => {
+            if (res.result.success) {
+              setOrders(res.result.data);
+              resolve(res.result.data);
+            } else {
+              Toast.fail(res.result.msg);
+              reject(res.result.msg);
+            }
+          })
+          .finally(() => {
+            Toast.hideLoading();
+          });
+      } else {
+        reject("请先登录");
+      }
+    });
   };
 
   // 功能入口列表
@@ -208,6 +217,7 @@ const Index = () => {
             </DropdownMenu>
             {orders.length ? (
               <Tabs
+                sticky
                 type="line"
                 animated
                 titleActiveColor="#36b7ab"
@@ -258,4 +268,5 @@ export default Index;
 
 definePageConfig({
   navigationBarTitleText: "活字印刷云打印",
+  enablePullDownRefresh: true,
 });
