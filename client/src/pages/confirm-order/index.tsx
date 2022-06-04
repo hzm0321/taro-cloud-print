@@ -12,10 +12,9 @@ import ImgCoupon from "@/assets/common/coupon.svg";
 import ImgAddress from "@/assets/common/address.svg";
 import ImgRemark from "@/assets/common/remark.svg";
 import ImgSuccess from "@/assets/common/success.svg";
-import { useRouteData, useUserInfo } from "@/hooks";
+import { useAppDispatch, useRouteData, useUserInfo } from "@/hooks";
 import { formatArea, getTime, inversePrice } from "@/utils";
 import { requestPay } from "@/services/pay";
-import { TEMP_DOCUMENT_STORAGE } from "@/constants/storage";
 import { EVENT_REFRESH_ORDERS } from "@/constants/events";
 import {
   MESSAGE_TYPE,
@@ -24,6 +23,7 @@ import {
 } from "@/constants/message";
 import { OrderTypes } from "@/constants/common";
 import { addMessage, sendPaySuccessMessage } from "@/services/message";
+import { clearFiles } from "@/slices/documentSlice";
 
 import styles from "./index.module.less";
 
@@ -37,7 +37,9 @@ const ConfirmOrder: React.FC<Props> = () => {
   const [remark, setRemark] = useState("");
   const [isShowPaySuccessModal, setIsShowPaySuccessModal] = useState(false);
   const userInfo = useUserInfo();
-  const paySuccessMsgRef = useRef({}); // 支付成功的消息推送
+  const dispatch = useAppDispatch();
+
+  const paySuccessMsgRef = useRef<PaySuccessMessage>({} as PaySuccessMessage); // 支付成功的消息推送
   const payResRef = useRef({}); // 支付成功的返回数据
 
   const toSelectAddress = useCallback(async () => {
@@ -139,8 +141,9 @@ const ConfirmOrder: React.FC<Props> = () => {
             }
           })
           .finally(() => {
-            // 清空本地云存储
-            Taro.removeStorageSync(TEMP_DOCUMENT_STORAGE);
+            // 清空本地数据
+            dispatch(clearFiles());
+
             // Router.back({ isPaySuccess: true });
             setTimeout(() => {
               Taro.switchTab({

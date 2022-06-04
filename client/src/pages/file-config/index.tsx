@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Router from "tarojs-router-next";
 import { isEmpty } from "lodash";
-import Taro from "@tarojs/taro";
 import { View, Text } from "@tarojs/components";
 import {
   Icon,
@@ -16,6 +15,8 @@ import {
 } from "@antmjs/vantui";
 import { ActionSheetItem } from "@antmjs/vantui/types/action-sheet";
 
+import { useAppDispatch, useRouteData, useRouteParams } from "@/hooks";
+import { addFiles, updateFiles } from "@/slices/documentSlice";
 import Container from "@/components/container";
 import FileType from "@/components/file-type";
 import {
@@ -25,10 +26,7 @@ import {
   lookFile,
 } from "@/utils";
 import { FILE_CONFIG_MEANING, FILE_CONFIG_TYPES } from "@/constants/common";
-import { useRouteData, useRouteParams } from "@/hooks";
 import { ToFileConfigProps } from "@/pages/select-file";
-import { EVENT_UPDATE_FILE } from "@/constants/events";
-import { TEMP_DOCUMENT_STORAGE } from "@/constants/storage";
 
 import styles from "./index.module.less";
 
@@ -37,6 +35,7 @@ interface Props {}
 const FileConfig: React.FC<Props> = () => {
   const params = (useRouteParams() as unknown) as ToFileConfigProps;
   const { fileId, tempFilePath } = params;
+  const dispatch = useAppDispatch();
 
   const editFileData = (useRouteData() || {}) as TempDocumentStorageType;
   const isEdit = !isEmpty(editFileData); // 是否为编辑状态进入
@@ -120,25 +119,12 @@ const FileConfig: React.FC<Props> = () => {
         id: new Date().getTime().toString(),
       };
     }
-    // 写入本地缓存
-    let documents = Taro.getStorageSync<TempDocumentStorageType[]>(
-      TEMP_DOCUMENT_STORAGE
-    );
-    if (!documents) {
-      documents = [];
-    }
     if (isEdit) {
-      documents = documents.map((item) => {
-        if (item.id === editFileData.id) {
-          return data;
-        }
-        return item;
-      });
+      dispatch(updateFiles(data));
     } else {
-      documents.unshift(data);
+      // 新增数据
+      dispatch(addFiles(data));
     }
-    Taro.setStorageSync(TEMP_DOCUMENT_STORAGE, documents);
-    Taro.eventCenter.trigger(EVENT_UPDATE_FILE);
     Router.back();
   };
 

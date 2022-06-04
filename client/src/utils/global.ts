@@ -126,7 +126,7 @@ export function formatPrice(price: number) {
  */
 export function inversePrice(price: number = 0, isInteger?: boolean) {
   const v = (price / 100).toFixed(2);
-  return isInteger ? parseInt(v) : v;
+  return isInteger ? parseInt(v).toString() : v;
 }
 
 /**

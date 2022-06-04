@@ -2,72 +2,50 @@ import React, { useCallback, useEffect, useState } from "react";
 import Router from "tarojs-router-next";
 import { View, ScrollView, Text } from "@tarojs/components";
 import { Button, Divider, Icon } from "@antmjs/vantui";
-import Taro from "@tarojs/taro";
 
-import { queryOrderPrices, queryStore } from "@/services";
+import Modal from "@/components/modal";
+import Toast from "@/components/toast";
 import StoreCard from "@/components/store-card";
 import Container from "@/components/container/index";
 import Empty from "@/components/empty";
 import FileType from "@/components/file-type";
-import { TEMP_DOCUMENT_STORAGE } from "@/constants/storage";
 import { getFileMean, inversePrice, lookFile } from "@/utils";
-import { useUpdate, useEventCenter } from "@/hooks";
-import { EVENT_UPDATE_FILE } from "@/constants/events";
-import Modal from "@/components/modal";
-import Toast from "@/components/toast";
+import { useAppSelector, useAppDispatch } from "@/hooks";
+import { deleteFiles } from "@/slices/documentSlice";
+import { updateStore } from "@/slices/storeSlice";
+import { queryOrderPrices } from "@/services";
 
 import styles from "./index.module.less";
 
 interface Props {}
 
 const PrintOption: React.FC<Props> = () => {
-  const [storeData, setStoreData] = useState<StoreDb>({} as StoreDb);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [freightPrice, setFreightPrice] = useState(0);
-  const update = useUpdate();
+  const [
+    filesPricesData,
+    setFilesPricesData,
+  ] = useState<CloudOrderCalcPriceData>({
+    totalPrice: 0,
+    freightPrice: 0,
+    filesPrice: [],
+  });
+  const dispatch = useAppDispatch();
 
-  const files = initFiles();
-
-  // 监听文件本地缓存变化
-  useEventCenter(EVENT_UPDATE_FILE, () => updateFiles(initFiles()));
+  const files = useAppSelector((state) => state.document);
+  const storeData = useAppSelector((state) => state.store);
 
   // 初始化商店数据
   useEffect(() => {
-    queryStore().then((res) => {
-      setStoreData(res.data[0] as StoreDb);
-    });
+    dispatch(updateStore());
   }, []);
 
-  // 初始化价格数据
+  // 更新价格
   useEffect(() => {
-    if (storeData._id && files.length) {
-      updateFiles(files);
-    }
-  }, [storeData]);
-
-  function initFiles() {
-    return Taro.getStorageSync<TempDocumentStorageType[]>(
-      TEMP_DOCUMENT_STORAGE
-    );
-  }
-
-  // 刷新本地 files 缓存数据
-  const updateFiles = useCallback(
-    (newFiles) => {
+    if (files.length && storeData?._id) {
       Toast.loading("加载中...");
-      // 查询价格
-      queryOrderPrices({ storeId: storeData._id, files: newFiles })
+      queryOrderPrices({ storeId: storeData._id, files })
         .then((res) => {
           if (res.result.success) {
-            const result = res.result.data;
-            const _files = newFiles.map((file, index) => ({
-              ...file,
-              price: result.filesPrice[index],
-            }));
-            setTotalPrice(result.totalPrice);
-            setFreightPrice(result.freightPrice);
-            Taro.setStorageSync(TEMP_DOCUMENT_STORAGE, _files);
-            update();
+            setFilesPricesData(res.result.data);
           } else {
             Toast.fail(res.result.msg);
           }
@@ -75,9 +53,8 @@ const PrintOption: React.FC<Props> = () => {
         .finally(() => {
           Toast.hideLoading();
         });
-    },
-    [update, storeData]
-  );
+    }
+  }, [files, storeData?._id]);
 
   const toSelectFile = useCallback(() => {
     Router.toSelectFile();
@@ -94,18 +71,14 @@ const PrintOption: React.FC<Props> = () => {
   }, []);
 
   // 删除文件
-  const handleDeleteFile = useCallback(
-    (file) => {
-      Modal({
-        title: `是否删除文件${file.fileName}`,
-        onOk() {
-          const newFiles = files.filter((item) => item.id !== file.id);
-          updateFiles(newFiles);
-        },
-      });
-    },
-    [files, updateFiles]
-  );
+  const handleDeleteFile = useCallback((file) => {
+    Modal({
+      title: `是否删除文件${file.fileName}`,
+      onOk() {
+        dispatch(deleteFiles(file));
+      },
+    });
+  }, []);
 
   const toPriceList = useCallback(() => {
     Router.toPriceList({ data: storeData });
@@ -133,7 +106,7 @@ const PrintOption: React.FC<Props> = () => {
         <ScrollView scrollY className={styles.scroll}>
           {files.map((file, index) => (
             <View key={file.fileId} className={styles.file}>
-              <View className={styles.order}>{++index}</View>
+              <View className={styles.order}>{index + 1}</View>
               <View className={styles.content}>
                 <View className={styles.info}>
                   <FileType type={file.fileType} className={styles.type} />
@@ -145,7 +118,7 @@ const PrintOption: React.FC<Props> = () => {
                 <Divider />
                 <View className={styles.operate}>
                   <View className={styles.price}>
-                    ¥ {inversePrice(file.price || 0)}
+                    ¥ {inversePrice(filesPricesData.filesPrice[index] || 0)}
                   </View>
                   <View className={styles.do}>
                     <Icon
@@ -188,12 +161,14 @@ const PrintOption: React.FC<Props> = () => {
       <View className={styles.footer}>
         <View className={styles["total-price"]}>
           合计:&nbsp;
-          <Text className={styles.price}>¥ {inversePrice(totalPrice)} </Text>
-          {Number(freightPrice) > 0 && (
+          <Text className={styles.price}>
+            ¥ {inversePrice(filesPricesData.totalPrice)}{" "}
+          </Text>
+          {Number(filesPricesData.freightPrice) > 0 && (
             <Text className={styles.freight} onClick={toPriceList}>
               &nbsp;(不满<Text className={styles.price}>¥19</Text>运费
               <Text className={styles.price}>
-                ¥{inversePrice(freightPrice, true)}
+                ¥{inversePrice(filesPricesData.freightPrice, true)}
               </Text>
               )
             </Text>

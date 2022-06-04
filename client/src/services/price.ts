@@ -19,7 +19,7 @@ export const queryOrderPrices = ({
   files,
 }: {
   storeId: string;
-  files: DocumentConfigProps;
+  files: DocumentConfigProps[];
 }) => {
   return Taro.cloud.callFunction({
     name: FUNCTION_ORDER,
