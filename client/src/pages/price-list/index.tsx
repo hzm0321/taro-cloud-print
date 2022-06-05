@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { View, Text } from "@tarojs/components";
 import { NoticeBar, Row, Col } from "@antmjs/vantui";
 
@@ -7,6 +7,7 @@ import Container from "@/components/container/index";
 import { getPrintConfigMean, inversePrice } from "@/utils";
 import { queryPriceById } from "@/services";
 import Toast from "@/components/toast";
+import { FILE_CONFIG_MEANING, FILE_CONFIG_TYPES } from "@/constants/common";
 
 import styles from "./index.module.less";
 
@@ -30,6 +31,19 @@ const PriceList: React.FC<Props> = () => {
         });
     }
   }, [_id]);
+
+  const bindPrices = useMemo(() => {
+    if (storeData.bindPrices) {
+      return Object.keys(storeData.bindPrices)
+        .map((key) => ({
+          key,
+          name: FILE_CONFIG_MEANING[FILE_CONFIG_TYPES.BIND][key],
+          price: storeData.bindPrices[key],
+        }))
+        .sort((a, b) => a.price - b.price);
+    }
+    return [];
+  }, [storeData]);
 
   return (
     <Container className={styles.wrapper}>
@@ -80,6 +94,21 @@ const PriceList: React.FC<Props> = () => {
                 {getPrintConfigMean(item.face, FILE_CONFIG_TYPES.FACE)}
               </Col>
               <Col span="4.5">¥ {inversePrice(item.price)}</Col>
+            </Row>
+          ))}
+        </View>
+      </View>
+      <View className={styles.form}>
+        <View className={styles.title}>装订费用价格表</View>
+        <View className={styles.table}>
+          <Row className={styles.header}>
+            <Col span="12">装订方式</Col>
+            <Col span="12">销售价格</Col>
+          </Row>
+          {bindPrices.map((item) => (
+            <Row key={item.key} className={styles.row}>
+              <Col span="12">{item.name}</Col>
+              <Col span="12">¥ {inversePrice(item.price)}</Col>
             </Row>
           ))}
         </View>

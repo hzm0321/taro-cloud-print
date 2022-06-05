@@ -35,13 +35,15 @@ class Order {
     // 查询价格表
     const res = await db
       .collection(DB_PRICES)
-      // .where({ store_id: storeId })
+      .where({ store_id: storeId })
       .get();
+
+    const storeData = await db.collection(DB_STORE).doc(storeId).get();
 
     if (res.data.length > 0) {
       ctx.body = {
         success: true,
-        data: calcOrderPriceUtil(files, res.data),
+        data: calcOrderPriceUtil(files, res.data, storeData.data.bindPrices),
       };
     }
   }

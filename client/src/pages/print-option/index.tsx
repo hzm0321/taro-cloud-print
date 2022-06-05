@@ -133,7 +133,10 @@ const PrintOption: React.FC<Props> = () => {
                   </View>
                 </View>
               </View>
-              <View onClick={() => handleDeleteFile(file)}>
+              <View
+                className={styles.close}
+                onClick={() => handleDeleteFile(file)}
+              >
                 <Icon name="cross" color="#e6e6e6" />
               </View>
             </View>

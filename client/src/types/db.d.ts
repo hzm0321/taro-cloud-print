@@ -37,6 +37,13 @@ declare interface StoreDb extends CloudDatabase {
   uuid: string; // 管理端绑定的管理员账号 id
   freightThreshold: number; // 运费阈值
   freight: number; // 运费
+  bindPrices: {
+    none: number;
+    staple: number;
+    concave: number;
+    concave_title: number;
+    old: number;
+  };
 }
 
 /********** prices 表字段 **********/

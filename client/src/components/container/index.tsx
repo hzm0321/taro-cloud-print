@@ -8,6 +8,7 @@ import styles from "./index.module.less";
 interface Props extends ViewProps {
   padding?: boolean;
   layout?: "horizontal" | "vertical";
+  safeArea?: boolean; // 适配苹果横线条
 }
 
 const Container: React.FC<Props> = ({
@@ -15,11 +16,13 @@ const Container: React.FC<Props> = ({
   children,
   className,
   layout = "vertical",
+  safeArea = true,
   ...rest
 }) => {
   const _className = useMemo(() => {
     const args = {
       [styles.container]: true,
+      [styles.safe]: safeArea,
     };
     if (className) {
       args[className] = true;

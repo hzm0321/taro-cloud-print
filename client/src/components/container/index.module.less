@@ -5,9 +5,13 @@
 }
 
 .padding {
-  padding: 20px;
+  padding: 20px 20px 0 20px;
 }
 
 .vertical {
   flex-direction: column;
+}
+
+.safe {
+  padding-bottom: calc(10px + env(safe-area-inset-bottom) / 2); // 适配iPhone X以上机型底部横条
 }

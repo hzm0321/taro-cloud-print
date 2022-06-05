@@ -15,7 +15,12 @@ import {
 } from "@antmjs/vantui";
 import { ActionSheetItem } from "@antmjs/vantui/types/action-sheet";
 
-import { useAppDispatch, useRouteData, useRouteParams } from "@/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useRouteData,
+  useRouteParams,
+} from "@/hooks";
 import { addFiles, updateFiles } from "@/slices/documentSlice";
 import Container from "@/components/container";
 import FileType from "@/components/file-type";
@@ -23,6 +28,7 @@ import {
   getFileName,
   getFileType,
   getPrintConfigMean,
+  inversePrice,
   lookFile,
 } from "@/utils";
 import { FILE_CONFIG_MEANING, FILE_CONFIG_TYPES } from "@/constants/common";
@@ -36,6 +42,7 @@ const FileConfig: React.FC<Props> = () => {
   const params = (useRouteParams() as unknown) as ToFileConfigProps;
   const { fileId, tempFilePath } = params;
   const dispatch = useAppDispatch();
+  const storeData = useAppSelector((state) => state.store);
 
   const editFileData = (useRouteData() || {}) as TempDocumentStorageType;
   const isEdit = !isEmpty(editFileData); // 是否为编辑状态进入
@@ -47,10 +54,18 @@ const FileConfig: React.FC<Props> = () => {
     const obj = {};
     for (const key in FILE_CONFIG_MEANING) {
       if (FILE_CONFIG_MEANING.hasOwnProperty(key)) {
-        obj[key] = Object.keys(FILE_CONFIG_MEANING[key]).map((k) => ({
-          key: k,
-          name: FILE_CONFIG_MEANING[key][k],
-        }));
+        obj[key] = Object.keys(FILE_CONFIG_MEANING[key]).map((k) => {
+          let name = FILE_CONFIG_MEANING[key][k];
+          // 如果是装订方式附加价格
+          if (key === FILE_CONFIG_TYPES.BIND) {
+            name += `（¥ ${inversePrice(storeData.bindPrices[k])}）`;
+          }
+
+          return {
+            key: k,
+            name,
+          };
+        });
       }
     }
     return obj;

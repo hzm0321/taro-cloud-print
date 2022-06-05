@@ -12,22 +12,13 @@ const ORDER_STATUS = {
 
 // 文件设置类型
 const FILE_CONFIG_TYPES = {
-  SIZE: 'size', // 纸张大小
-  COLOR: 'color', // 纸张颜色
-  TYPE: 'type', // 纸张类型
-  FACE: 'face', // 单双面
-  COUNT: 'count', // 打印份数
-  BIND: 'bind', // 装订方式
-  NUMBER: 'number', // 文件页数
+  SIZE: "size", // 纸张大小
+  COLOR: "color", // 纸张颜色
+  TYPE: "type", // 纸张类型
+  FACE: "face", // 单双面
+  COUNT: "count", // 打印份数
+  BIND: "bind", // 装订方式
+  NUMBER: "number", // 文件页数
 };
 
-// 装订价格列表
-const BindPrices = {
-  none: 0,
-  staple: 1 * 100,
-  concave: 2 * 100,
-  concave_title: 3 * 100,
-  old: 4 * 100,
-};
-
-module.exports = { ORDER_STATUS, FILE_CONFIG_TYPES, BindPrices };
+module.exports = { ORDER_STATUS, FILE_CONFIG_TYPES };

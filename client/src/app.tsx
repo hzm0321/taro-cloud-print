@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 
 import { store } from "./store";
-import { TEST_CLOUD_SERVICE } from "./constants/service-prefix";
+import { CLOUD_SERVICE } from "../config/env";
 import "./app.less";
 import "./utils/fix";
 
@@ -16,7 +16,7 @@ const App: React.FC<Props> = ({ children }) => {
     if (process.env.TARO_ENV === "weapp") {
       Taro.cloud.init({
         traceUser: true,
-        env: TEST_CLOUD_SERVICE, // 设置云函数调用环境
+        env: CLOUD_SERVICE, // 设置云函数调用环境
       });
     }
   });
