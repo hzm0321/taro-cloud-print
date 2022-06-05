@@ -1,16 +1,16 @@
 <div align="center">
 <h1>taro-cloud-print</h1>
-   <a href="https://www.npmjs.com/package/diy-hooks">
-      <img src="https://img.shields.io/npm/v/diy-hooks.svg" alt="npm package" />
+   <a href="https://github.com/hzm0321/taro-cloud-print">
+      <img src="https://img.shields.io/github/forks/hzm0321/taro-cloud-print" alt="npm downloads" />
    </a>
-   <a href="https://www.npmjs.com/package/diy-hooks">
-      <img src="https://img.shields.io/npm/dm/diy-hooks.svg" alt="npm downloads" />
+   <a href="https://github.com/hzm0321/taro-cloud-print">
+      <img src="https://img.shields.io/github/watchers/hzm0321/taro-cloud-print" alt="npm downloads" />
    </a>
-   <a href="https://www.npmjs.com/package/diy-hooks">
-      <img src="https://img.shields.io/npm/l/diy-hooks.svg" alt="npm downloads" />
+   <a href="https://github.com/hzm0321/taro-cloud-print">
+      <img src="https://img.shields.io/github/license/hzm0321/taro-cloud-print" alt="npm downloads" />
    </a>
-   <a href="https://github.com/hzm0321/diy-hooks">
-      <img src="https://img.shields.io/github/stars/hzm0321/diy-hooks?style=social" alt="npm downloads" />
+   <a href="https://github.com/hzm0321/taro-cloud-print">
+      <img src="https://img.shields.io/github/stars/hzm0321/taro-cloud-print?style=social" alt="npm downloads" />
    </a>
 </div>
 
