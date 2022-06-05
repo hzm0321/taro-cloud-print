@@ -1,0 +1,61 @@
+{
+  "_id": "f6e08a64629c729006b2ff7879fa75c4",
+  "openid": "oQ5_Y5XtPLIpK9DioyxVBP-XrWEE",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "user_id": "0a4ec1f962665001002b304633efd641",
+  "files": [
+    {
+      "bind": "old",
+      "color": "colour",
+      "count": 1,
+      "face": "single",
+      "fileId": "cloud://test-73xxf.7465-test-73xxf-1302559344/printFile/2022-06/oQ5_Y5XtPLIpK9DioyxVBP-XrWEE/file/1649131099-逻辑写在父组件.pdf",
+      "fileName": "逻辑写在父组件.pdf",
+      "fileType": "pdf",
+      "id": "1654406743091",
+      "number": "3",
+      "size": "A4",
+      "tempFilePath": "http://tmp/HjqoMi74FMJ2b242bde2336e28de1512ef610a0bb1b8.pdf",
+      "type": "normal",
+      "price": 490
+    }
+  ],
+  "body": "打印订单",
+  "outTradeNo": "P202206050908311822",
+  "totalFee": 1,
+  "status": 1,
+  "orderType": "document",
+  "address": {
+    "_createTime": 1651572755492,
+    "_id": "16db756f6271001300f07cd031c06ff9",
+    "_updateTime": 1651572755492,
+    "addressDetail": "测试测试",
+    "area": [
+      {
+        "code": "310000",
+        "name": "上海市"
+      },
+      {
+        "code": "310100",
+        "name": "上海市"
+      },
+      {
+        "code": "310118",
+        "name": "青浦区"
+      }
+    ],
+    "consignee": "测试用户",
+    "phone": "15858888888",
+    "user_id": "0a4ec1f962665001002b304633efd641"
+  },
+  "remark": "",
+  "_createTime": 1654420112364,
+  "_updateTime": 1654420126046,
+  "histories": [
+    {
+      "_updateTime": 1654420126046,
+      "status": 1
+    }
+  ],
+  "transactionId": "4200001457202206052696065049"
+}

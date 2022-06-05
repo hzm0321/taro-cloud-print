@@ -30,7 +30,7 @@ import styles from "./index.module.less";
 interface Props {}
 
 const ConfirmOrder: React.FC<Props> = () => {
-  const { storeData, files } = useRouteData() || {};
+  const { storeData, files, totalPrice } = useRouteData() || {};
   const [selectedAddress, setSelectedAddress] = useState<AddressDb | null>(
     null
   ); // 当前选中的地址
@@ -73,7 +73,6 @@ const ConfirmOrder: React.FC<Props> = () => {
       // 发起支付
       requestPay(data)
         .then((res) => {
-          debugger;
           if (res.result.success) {
             const { payment, outTradeNo, totalPrice } = res.result.data;
             payResRef.current = res.result.data;
@@ -213,7 +212,7 @@ const ConfirmOrder: React.FC<Props> = () => {
       </CellGroup>
       <View className={styles.amount}>
         <View className={styles.label}>实际应付</View>
-        <View className={styles.price}>¥ 1.00</View>
+        <View className={styles.price}>¥ {inversePrice(totalPrice)}</View>
       </View>
       <Button type="primary" block round onClick={handleWxPay}>
         微信支付

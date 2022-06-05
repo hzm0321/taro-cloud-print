@@ -3,7 +3,7 @@
 // const db = cloud.database();
 const { PAY_ENV } = require("../constants/env");
 const { MCH_Id } = require("../constants/common");
-const { DB_ORDERS } = require("../constants/database");
+const { DB_ORDERS, DB_USERS } = require("../constants/database");
 const { getTime } = require("../utils/common");
 const mchId = MCH_Id;
 
@@ -55,8 +55,13 @@ class Pay {
     });
     if (priceRes.result.success) {
       totalPrice = priceRes.result.data.totalPrice;
-      // 管理员测试时修改价格为 1分
-      if (TestMemberOpenid.includes(openid)) {
+      // 验证访问用户是否为管理员，管理员测试时修改价格为 1分
+      const userRes = await cloud
+        .database()
+        .collection(DB_USERS)
+        .where({ _openid: openid, testFlag: true })
+        .get();
+      if (userRes.data && userRes.data.length > 0) {
         totalPrice = 1;
       }
       // 把价格写入文件行数据

@@ -1,0 +1,288 @@
+{
+  "_id": "d2fe6f20624bba1d04d8d20112326699",
+  "_createTime": 1.649130012823E+12,
+  "color": "colourless",
+  "size": "A3",
+  "price": 200.0,
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "type": "normal",
+  "_openid": "42b0581f051642398e2d3d69aea30e97",
+  "_updateTime": 1.649130012823E+12,
+  "face": "double"
+}
+{
+  "_id": "63605076624bba1d03fcab430c035a96",
+  "_createTime": 1.649130012823E+12,
+  "_openid": "42b0581f051642398e2d3d69aea30e97",
+  "_updateTime": 1.649130012823E+12,
+  "color": "colourless",
+  "size": "A3",
+  "face": "single",
+  "price": 100.0,
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "type": "normal"
+}
+{
+  "_id": "807102f6624bba1d04774de430cacbc5",
+  "size": "A3",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "_createTime": 1.649130012823E+12,
+  "_updateTime": 1.649316403435E+12,
+  "color": "colourless",
+  "type": "daolin",
+  "_openid": "42b0581f051642398e2d3d69aea30e97",
+  "face": "single",
+  "price": 200.0
+}
+{
+  "_id": "807102f6624bba1d04774de728cc2096",
+  "type": "daolin",
+  "_updateTime": 1.649316403435E+12,
+  "price": 400.0,
+  "color": "colourless",
+  "face": "double",
+  "size": "A3",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "_createTime": 1.649130012823E+12,
+  "_openid": "42b0581f051642398e2d3d69aea30e97"
+}
+{
+  "_id": "d2fe6f20624bba1e04d8d2176856ec5c",
+  "_createTime": 1.649130012823E+12,
+  "_openid": "42b0581f051642398e2d3d69aea30e97",
+  "price": 400.0,
+  "size": "A3",
+  "type": "daolin",
+  "_updateTime": 1.649316403435E+12,
+  "color": "colour",
+  "face": "double",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3"
+}
+{
+  "_id": "82afc00a624bba1d033707b3643a69a7",
+  "_updateTime": 1.649316403435E+12,
+  "color": "colour",
+  "price": 100.0,
+  "size": "A3",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "_createTime": 1.649130012823E+12,
+  "_openid": "42b0581f051642398e2d3d69aea30e97",
+  "face": "double",
+  "type": "normal"
+}
+{
+  "_id": "63605076624bba1d03fcab5009d7bc67",
+  "_createTime": 1.649130012823E+12,
+  "_updateTime": 1.649316403435E+12,
+  "color": "colour",
+  "face": "single",
+  "type": "daolin",
+  "_openid": "42b0581f051642398e2d3d69aea30e97",
+  "price": 400.0,
+  "size": "A3",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3"
+}
+{
+  "_id": "d2fe6f20624bba1d04d8d20546f5b585",
+  "type": "normal",
+  "_createTime": 1.649130012823E+12,
+  "_openid": "42b0581f051642398e2d3d69aea30e97",
+  "_updateTime": 1.649130012823E+12,
+  "color": "colour",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "face": "single",
+  "price": 300.0,
+  "size": "A3"
+}
+{
+  "_id": "68426679629c3e1f04d5435657f078ce",
+  "color": "colourless",
+  "face": "single",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "type": "normal",
+  "_createTime": 1.654406687389E+12,
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "_updateTime": 1.654406687389E+12,
+  "price": 2.0,
+  "size": "A3"
+}
+{
+  "_id": "8f75309d629c3e20071a7f6a728695f0",
+  "color": "colourless",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "_createTime": 1.654406687389E+12,
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "_updateTime": 1.654406687389E+12,
+  "face": "double",
+  "price": 3.0,
+  "size": "A3",
+  "type": "normal"
+}
+{
+  "_id": "16db756f629c3e2005e2885c62bc188e",
+  "size": "A3",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "color": "colour",
+  "face": "single",
+  "price": 4.0,
+  "type": "normal",
+  "_createTime": 1.654406687389E+12,
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "_updateTime": 1.654406687389E+12
+}
+{
+  "_id": "6d85a2b9629c3e2008cbd28d12b379fa",
+  "color": "colour",
+  "face": "double",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "type": "normal",
+  "_createTime": 1.654406687389E+12,
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "_updateTime": 1.654406687389E+12,
+  "price": 5.0,
+  "size": "A3"
+}
+{
+  "_id": "0ab5303b629c3e2007c59b6e3777162b",
+  "_createTime": 1.654406687389E+12,
+  "_updateTime": 1.654406687389E+12,
+  "size": "A3",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "color": "colourless",
+  "face": "single",
+  "price": 6.0,
+  "type": "daolin"
+}
+{
+  "_id": "f6e08a64629c3e2006ac78f02edb7455",
+  "_createTime": 1.654406687389E+12,
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "_updateTime": 1.654406687389E+12,
+  "price": 7.000000000000001,
+  "size": "A3",
+  "color": "colourless",
+  "face": "double",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "type": "daolin"
+}
+{
+  "_id": "058dfefe629c3e20074acdf036a064f6",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "price": 8.0,
+  "color": "colour",
+  "face": "single",
+  "size": "A3",
+  "type": "daolin",
+  "_createTime": 1.654406687389E+12,
+  "_updateTime": 1.654406687389E+12
+}
+{
+  "_id": "8f75309d629c3e21071a7f7c68e57939",
+  "type": "daolin",
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "face": "double",
+  "price": 9.0,
+  "size": "A3",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "_createTime": 1.654406687389E+12,
+  "_updateTime": 1.654406687389E+12,
+  "color": "colour"
+}
+{
+  "_id": "0ab5303b629c3e2107c59b78508b491d",
+  "face": "single",
+  "price": 10.0,
+  "size": "A4",
+  "type": "normal",
+  "_createTime": 1.654406687389E+12,
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "_updateTime": 1.654406687389E+12,
+  "color": "colourless",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3"
+}
+{
+  "_id": "0ab5303b629c3e2107c59b7b23a50869",
+  "price": 20.0,
+  "type": "normal",
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "_updateTime": 1.654406687389E+12,
+  "color": "colourless",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "_createTime": 1.654406687389E+12,
+  "face": "double",
+  "size": "A4"
+}
+{
+  "_id": "8f75309d629c3e21071a7f8c0114855b",
+  "price": 30.0,
+  "type": "normal",
+  "_createTime": 1.654406687389E+12,
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "face": "single",
+  "size": "A4",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "_updateTime": 1.654406687389E+12,
+  "color": "colour"
+}
+{
+  "_id": "0a4ec1f9629c3e2108bbc4e65f4c8ae2",
+  "face": "double",
+  "price": 40.0,
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "type": "normal",
+  "_createTime": 1.654406687389E+12,
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "_updateTime": 1.654406687389E+12,
+  "color": "colour",
+  "size": "A4"
+}
+{
+  "_id": "8f75309d629c3e21071a7f9474ac9bac",
+  "_createTime": 1.654406687389E+12,
+  "_updateTime": 1.654406687389E+12,
+  "face": "single",
+  "price": 50.0,
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "type": "daolin",
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "color": "colourless",
+  "size": "A4"
+}
+{
+  "_id": "6d85a2b9629c3e2108cbd2af5cd95cef",
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "_updateTime": 1.654406687389E+12,
+  "size": "A4",
+  "_createTime": 1.654406687389E+12,
+  "color": "colourless",
+  "face": "double",
+  "price": 60.0,
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "type": "daolin"
+}
+{
+  "_id": "ca780ad5629c3e21060f5b95132261a3",
+  "_updateTime": 1.654406687389E+12,
+  "color": "colour",
+  "size": "A4",
+  "type": "daolin",
+  "_createTime": 1.654406687389E+12,
+  "face": "single",
+  "price": 70.0,
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781"
+}
+{
+  "_id": "0a4ec1f9629c3e2208bbc4ef3555e26f",
+  "_createTime": 1.654406687389E+12,
+  "color": "colour",
+  "face": "double",
+  "price": 80.0,
+  "size": "A4",
+  "store_id": "b00064a76083db1d10e5a8296faa24b3",
+  "_openid": "18fafadd52b64fd58608ea9e9caa9781",
+  "_updateTime": 1.654406687389E+12,
+  "type": "daolin"
+}

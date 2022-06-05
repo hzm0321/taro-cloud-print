@@ -1,0 +1,31 @@
+{
+  "_id": "b00064a76083db1d10e5a8296faa24b3",
+  "name": "江南烟雨打印店",
+  "position": {
+    "coordinates": [
+      120.130203,
+      30.259324
+    ],
+    "type": "Point"
+  },
+  "address": "浙江省杭州市西湖",
+  "description": "提供文档打印服务, 黑白打印低至¥0.2一张 test",
+  "keywords": [
+    "彩印",
+    "免配送费",
+    "哈哈哈",
+    "测试测试"
+  ],
+  "phone": "18888888888",
+  "rate": 4.8,
+  "officeHours": "09:00-21:00",
+  "freightThreshold": 1900.0,
+  "freight": 900.0,
+  "bindPrices": {
+    "none": 0.0,
+    "staple": 100.0,
+    "concave": 200.0,
+    "concave_title": 300.0,
+    "old": 400.0
+  }
+}

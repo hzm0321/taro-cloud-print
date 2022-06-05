@@ -95,6 +95,7 @@ const PrintOption: React.FC<Props> = () => {
         storeData,
         files,
         orderType: "document",
+        totalPrice: filesPricesData.totalPrice,
       },
     });
   };
