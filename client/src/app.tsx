@@ -2,10 +2,10 @@ import Taro from "@tarojs/taro";
 import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 
+import "./utils/fix";
 import { store } from "./store";
 import { CLOUD_SERVICE } from "../config/env";
 import "./app.less";
-import "./utils/fix";
 
 interface Props {
   children: React.ReactElement;

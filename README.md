@@ -81,13 +81,13 @@ export const CLOUD_SERVICE = "XXXXXX"; // 你的环境ID
 
 **BindPrices**
 
-| 字段名            | 说明      | 类型       | 备注  |
-|----------------|---------|----------|-----|
-| _none          | 不装订     | `number` | -   |
-| _staple        | 订书针装订   | `number` | -   |
-| _concave       | 凹纹封面无标题 | `number` | -   |
-| _concave_title | 凹纹封面有标题 | `number` | -   |
-| _old           | 复古封面无标题 | `number` | -   |
+| 字段名           | 说明      | 类型       | 备注  |
+|---------------|---------|----------|-----|
+| none          | 不装订     | `number` | -   |
+| staple        | 订书针装订   | `number` | -   |
+| concave       | 凹纹封面无标题 | `number` | -   |
+| concave_title | 凹纹封面有标题 | `number` | -   |
+| old           | 复古封面无标题 | `number` | -   |
 
 * **address 集合**：收货地址数据
 
