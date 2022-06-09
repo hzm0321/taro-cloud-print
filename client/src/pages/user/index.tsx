@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import Taro from "@tarojs/taro";
+import Taro, { useTabItemTap } from "@tarojs/taro";
 import Router from "tarojs-router-next";
 import { View, Image } from "@tarojs/components";
 import ImgVip from "@/assets/user/vip.svg";
@@ -24,6 +24,10 @@ const User = () => {
   const _init = useCallback(() => {
     setUserInfo(Taro.getStorageSync<UserDb>(USER_INFO_STORAGE));
   }, []);
+
+  useTabItemTap(() => {
+    _init();
+  });
 
   return (
     <Container padding={false} className={styles.wrapper}>

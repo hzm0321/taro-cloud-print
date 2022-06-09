@@ -104,8 +104,13 @@ const Index = () => {
   const gridItemList = useMemo(() => {
     const handleItemClick = async (key: GridItemKeys) => {
       // 进入入口前校验一遍登录状态
-      const loginInfo = await mustLogin();
-      if (loginInfo) {
+      if (!isLogin()) {
+        const _userInfo = await mustLogin();
+        if (_userInfo) {
+          _initOrders();
+        }
+        return;
+      } else {
         switch (key) {
           case GridItemKeys.document:
             Router.toPrintOption();
@@ -114,8 +119,6 @@ const Index = () => {
             Toast.show("此功能暂未开放, 敬请期待");
             break;
         }
-      } else {
-        Toast.show("此功能需登录后访问");
       }
     };
     const items = [

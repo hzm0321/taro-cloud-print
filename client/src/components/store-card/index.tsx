@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { View, Image, Text } from "@tarojs/components";
-import { Tag } from "@antmjs/vantui";
+import { Tag, Loading } from "@antmjs/vantui";
 import { Router } from "tarojs-router-next";
 
 import ImgStore from "@/assets/common/store.svg";
@@ -25,28 +25,34 @@ const StoreCard: React.FC<Props> = ({ value = {}, readonly }) => {
 
   return (
     <View className={styles.wrapper}>
-      <View className={styles.header}>
-        <View className={styles.title}>
-          <Image src={ImgStore} className={styles.icon} />
-          <Text className={styles.name}>{name}</Text>
-          <Text className={styles.detail} onClick={toDetail}>
-            详情
-          </Text>
-        </View>
-        {!readonly && (
-          <View className={styles.price} onClick={toPrice}>
-            价格详情
+      {!name ? (
+        <Loading type="spinner" color="#666" />
+      ) : (
+        <>
+          <View className={styles.header}>
+            <View className={styles.title}>
+              <Image src={ImgStore} className={styles.icon} />
+              <Text className={styles.name}>{name}</Text>
+              <Text className={styles.detail} onClick={toDetail}>
+                详情
+              </Text>
+            </View>
+            {!readonly && (
+              <View className={styles.price} onClick={toPrice}>
+                价格详情
+              </View>
+            )}
           </View>
-        )}
-      </View>
-      <View className={styles.description}>{description}</View>
-      <View className={styles.keywords}>
-        {keywords.map((word, index) => (
-          <Tag key={index} type="primary">
-            {word}
-          </Tag>
-        ))}
-      </View>
+          <View className={styles.description}>{description}</View>
+          <View className={styles.keywords}>
+            {keywords.map((word, index) => (
+              <Tag key={index} type="primary">
+                {word}
+              </Tag>
+            ))}
+          </View>
+        </>
+      )}
     </View>
   );
 };

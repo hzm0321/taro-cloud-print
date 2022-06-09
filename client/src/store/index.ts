@@ -1,4 +1,5 @@
 import logger from "redux-logger";
+import ThunkMiddleware from "redux-thunk";
 import { configureStore } from "@reduxjs/toolkit";
 
 import documentReducer from "../slices/documentSlice";
@@ -11,6 +12,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) => {
     let middleware: any = getDefaultMiddleware();
+    middleware.concat(ThunkMiddleware);
     if (process.env.NODE_ENV === "development") {
       middleware = middleware.concat(logger);
     }
