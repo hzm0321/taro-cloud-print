@@ -19,7 +19,7 @@ import ImgTest from "@/assets/home/test.svg";
 import { queryMyOrders, querySwiper } from "@/services";
 import { GridItemKeys } from "@/constants/global";
 import { useUserInfo } from "@/hooks";
-import { isLogin, mustLogin } from "@/utils";
+import { getUserInfo, isLogin, mustLogin } from "@/utils";
 import Container from "@/components/container";
 import Toast from "@/components/toast";
 import Login from "@/components/login";
@@ -72,11 +72,13 @@ const Index = () => {
 
   // 请求订单数据
   const _initOrders = () => {
+    // 获取最新的用户 id
+    const userId = getUserInfo()?._id;
     return new Promise((resolve, reject) => {
-      if (userInfo?._id) {
+      if (userId) {
         Toast.loading("加载中...");
         return queryMyOrders({
-          userId: userInfo._id,
+          userId: userId,
           orderType: currentMenuItem,
           isUnfinished: true,
         })
