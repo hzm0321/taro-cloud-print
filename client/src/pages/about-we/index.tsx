@@ -3,6 +3,7 @@ import { View, Image } from "@tarojs/components";
 import { Cell, CellGroup } from "@antmjs/vantui";
 
 import Container from "@/components/container";
+import { miniProgramName, logoUrl } from "@/constants/global";
 
 import pkg from "../../../package.json";
 import styles from "./index.module.less";
@@ -13,9 +14,9 @@ const AboutWe: React.FC<Props> = () => {
   return (
     <Container padding={false} className={styles.wrapper}>
       <View className={styles.logo}>
-        <Image src="cloud://test-73xxf.7465-test-73xxf-1302559344/logo/logo.jpg" />
+        <Image src={logoUrl} />
       </View>
-      <View className={styles.desc}>活字印刷云打印</View>
+      <View className={styles.desc}>{miniProgramName}</View>
       <CellGroup>
         <Cell title="客户服务热线" isLink />
       </CellGroup>

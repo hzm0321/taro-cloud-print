@@ -10,7 +10,12 @@ import {
   Tab,
   Tabs,
 } from "@antmjs/vantui";
-import Taro, { usePullDownRefresh, useTabItemTap } from "@tarojs/taro";
+import Taro, {
+  usePullDownRefresh,
+  useShareAppMessage,
+  useShareTimeline,
+  useTabItemTap,
+} from "@tarojs/taro";
 
 import ImgCopy from "@/assets/home/copy.svg";
 import ImgDocument from "@/assets/home/document.svg";
@@ -18,7 +23,7 @@ import ImgImage from "@/assets/home/image.svg";
 import ImgTest from "@/assets/home/test.svg";
 import { queryMyOrders } from "@/services/order";
 import { querySwiper } from "@/services/swiper";
-import { GridItemKeys } from "@/constants/global";
+import { GridItemKeys, logoUrl, miniProgramName } from "@/constants/global";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import Container from "@/components/container";
 import Toast from "@/components/toast";
@@ -52,6 +57,27 @@ const Index = () => {
   usePullDownRefresh(() => {
     _initOrders();
     Taro.stopPullDownRefresh();
+  });
+
+  // 分享给个人
+  useShareAppMessage((res) => {
+    if (res.from === "button") {
+      // 来自页面内转发按钮
+      console.log(res.target);
+    }
+    return {
+      title: miniProgramName,
+      path: "/pages/index/index",
+    };
+  });
+
+  // 分享到朋友圈
+  useShareTimeline(() => {
+    console.log("onShareTimeline");
+    return {
+      title: miniProgramName,
+      imageUrl: logoUrl,
+    };
   });
 
   useEffect(() => {
@@ -274,4 +300,6 @@ export default Index;
 definePageConfig({
   navigationBarTitleText: "活字印刷云打印",
   enablePullDownRefresh: true,
+  enableShareAppMessage: true,
+  enableShareTimeline: true,
 });
