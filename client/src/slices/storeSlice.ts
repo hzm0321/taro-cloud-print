@@ -2,7 +2,7 @@ import Taro from "@tarojs/taro";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { SELECTED_DOCUMENT_STORE_STORAGE } from "@/constants/storage";
-import { queryStore } from "@/services";
+import { queryStore } from "@/services/store";
 
 const initialState = () => {
   return Taro.getStorageSync(SELECTED_DOCUMENT_STORE_STORAGE) || {};

@@ -11,11 +11,8 @@ import FileType from "@/components/file-type";
 import Modal from "@/components/modal";
 import { useRouteParams } from "@/hooks";
 import { ORDER_STATUS, ORDER_STATUS_MEANING } from "@/constants/common";
-import {
-  confirmPrintOrder,
-  queryOrderByOutTradeNo,
-  queryStoreById,
-} from "@/services";
+import { confirmPrintOrder, queryOrderByOutTradeNo } from "@/services/order";
+import { queryStoreById } from "@/services/store";
 import { dateFormat, formatArea, getFileMean, inversePrice } from "@/utils";
 import ImgCoupon from "@/assets/common/coupon.svg";
 import ImgAddress from "@/assets/common/address.svg";

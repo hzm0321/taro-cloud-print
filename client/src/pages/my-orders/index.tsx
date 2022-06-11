@@ -5,8 +5,8 @@ import { Tabs, Tab } from "@antmjs/vantui";
 import Container from "@/components/container";
 import Toast from "@/components/toast";
 import { ORDER_STATUS_MEANING, ORDER_STATUS } from "@/constants/common";
-import { queryMyOrders } from "@/services";
-import { useRouteParams, useUserInfo } from "@/hooks";
+import { queryMyOrders } from "@/services/order";
+import { useAppSelector, useRouteParams } from "@/hooks";
 import OrderCard from "@/components/order-card";
 import Empty from "@/components/empty";
 import { systemInfo } from "@/utils";
@@ -17,7 +17,8 @@ interface Props {}
 
 const MyOrders: React.FC<Props> = () => {
   const [orders, setOrders] = useState<CloudOrderListData[]>([]);
-  const userInfo = useUserInfo();
+  const user = useAppSelector((state) => state.user);
+
   const [isOrderRefresh, setIsOrderRefresh] = useState(false); // 订单刷新状态
   const [tabActive, setTabActive] = useState<number>(0);
 
@@ -34,9 +35,9 @@ const MyOrders: React.FC<Props> = () => {
   }, []);
 
   function _init() {
-    if (userInfo?._id) {
+    if (user?._id) {
       Toast.loading("加载中...");
-      queryMyOrders({ userId: userInfo._id })
+      queryMyOrders({ userId: user._id })
         .then((res) => {
           if (res.result.success) {
             setOrders(res.result.data);

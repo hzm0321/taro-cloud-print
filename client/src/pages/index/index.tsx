@@ -16,16 +16,17 @@ import ImgCopy from "@/assets/home/copy.svg";
 import ImgDocument from "@/assets/home/document.svg";
 import ImgImage from "@/assets/home/image.svg";
 import ImgTest from "@/assets/home/test.svg";
-import { queryMyOrders, querySwiper } from "@/services";
+import { queryMyOrders } from "@/services/order";
+import { querySwiper } from "@/services/swiper";
 import { GridItemKeys } from "@/constants/global";
-import { useUserInfo } from "@/hooks";
-import { getUserInfo, isLogin, mustLogin } from "@/utils";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import Container from "@/components/container";
 import Toast from "@/components/toast";
 import Login from "@/components/login";
 import Empty from "@/components/empty";
 import { ORDER_STATUS_MEANING } from "@/constants/common";
 import OrderCard from "@/components/order-card";
+import { login } from "@/slices/userSlice";
 
 import styles from "./index.module.less";
 
@@ -42,7 +43,11 @@ const Index = () => {
   const [swiperList, setSwiperList] = useState<SwiperType[]>([]);
   const [orders, setOrders] = useState<CloudOrderListData[]>([]);
   const [currentMenuItem, setCurrentMenuItem] = useState(MenuItems.all);
-  const userInfo = useUserInfo();
+
+  const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
+  const isLogin = !!user._id;
 
   usePullDownRefresh(() => {
     _initOrders();
@@ -61,19 +66,18 @@ const Index = () => {
 
   useEffect(() => {
     _initOrders();
-  }, [userInfo?._id, currentMenuItem]);
+  }, [user?._id, currentMenuItem]);
 
   // 切换底部菜单时刷新订单数据
   useTabItemTap(() => {
-    if (userInfo?._id) {
+    if (user?._id) {
       _initOrders();
     }
   });
 
   // 请求订单数据
   const _initOrders = () => {
-    // 获取最新的用户 id
-    const userId = getUserInfo()?._id;
+    const userId = user._id;
     return new Promise((resolve, reject) => {
       if (userId) {
         Toast.loading("加载中...");
@@ -104,12 +108,8 @@ const Index = () => {
   const gridItemList = useMemo(() => {
     const handleItemClick = async (key: GridItemKeys) => {
       // 进入入口前校验一遍登录状态
-      if (!isLogin()) {
-        const _userInfo = await mustLogin();
-        if (_userInfo) {
-          _initOrders();
-        }
-        return;
+      if (!isLogin) {
+        dispatch(login());
       } else {
         switch (key) {
           case GridItemKeys.document:
@@ -147,7 +147,7 @@ const Index = () => {
       ...item,
       onClick: () => handleItemClick(item.key),
     }));
-  }, []);
+  }, [isLogin]);
 
   // 下拉列表选项
   const menuOptions = useMemo(() => {
@@ -209,7 +209,7 @@ const Index = () => {
         </Grid>
       </View>
       <View className={styles.content}>
-        {isLogin() ? (
+        {isLogin ? (
           <View className={styles.orders}>
             <DropdownMenu activeColor="#36b7ab" className={styles.menu}>
               <DropdownItem

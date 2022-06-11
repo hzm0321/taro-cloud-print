@@ -5,8 +5,8 @@ import { Button, Icon } from "@antmjs/vantui";
 
 import AddressCard from "@/components/address-card";
 import Empty from "@/components/empty";
-import { useRouteParams, useUserInfo } from "@/hooks";
-import { deleteMyAddress, queryMyAddress } from "@/services";
+import { useAppSelector, useRouteParams } from "@/hooks";
+import { deleteMyAddress, queryMyAddress } from "@/services/address";
 import Container from "@/components/container";
 import Toast from "@/components/toast";
 import Modal from "@/components/modal";
@@ -18,13 +18,13 @@ interface Props {}
 
 const MyAddress: React.FC<Props> = () => {
   const [addresses, setAddresses] = useState<AddressDb[]>([]);
-  const userInfo = useUserInfo();
+  const user = useAppSelector((state) => state.user);
   const { readonly } = useRouteParams();
 
   const _init = useCallback(() => {
-    if (userInfo?._id) {
+    if (user?._id) {
       Toast.loading("加载中...");
-      queryMyAddress(userInfo._id)
+      queryMyAddress(user._id)
         .then((res) => {
           if (res.result.success) {
             setAddresses(res.result.data);
@@ -34,7 +34,7 @@ const MyAddress: React.FC<Props> = () => {
           Toast.hideLoading();
         });
     }
-  }, [userInfo]);
+  }, [user]);
 
   useEffect(() => {
     _init();

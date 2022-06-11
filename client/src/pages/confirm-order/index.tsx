@@ -12,7 +12,7 @@ import ImgCoupon from "@/assets/common/coupon.svg";
 import ImgAddress from "@/assets/common/address.svg";
 import ImgRemark from "@/assets/common/remark.svg";
 import ImgSuccess from "@/assets/common/success.svg";
-import { useAppDispatch, useRouteData, useUserInfo } from "@/hooks";
+import { useAppDispatch, useAppSelector, useRouteData } from "@/hooks";
 import { formatArea, getTime, inversePrice } from "@/utils";
 import { requestPay } from "@/services/pay";
 import { EVENT_REFRESH_ORDERS } from "@/constants/events";
@@ -36,7 +36,7 @@ const ConfirmOrder: React.FC<Props> = () => {
   ); // 当前选中的地址
   const [remark, setRemark] = useState("");
   const [isShowPaySuccessModal, setIsShowPaySuccessModal] = useState(false);
-  const userInfo = useUserInfo();
+  const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   const paySuccessMsgRef = useRef<PaySuccessMessage>({} as PaySuccessMessage); // 支付成功的消息推送
@@ -61,9 +61,9 @@ const ConfirmOrder: React.FC<Props> = () => {
     }
     Toast.loading("支付中...");
     // 获取支付需要收集的信息
-    if (userInfo && storeData && files) {
+    if (user && storeData && files) {
       const data = {
-        userId: userInfo._id,
+        userId: user._id,
         storeId: storeData._id,
         files: files,
         orderType: OrderTypes.document,

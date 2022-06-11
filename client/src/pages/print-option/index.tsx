@@ -13,7 +13,7 @@ import { getFileMean, inversePrice, lookFile } from "@/utils";
 import { useAppSelector, useAppDispatch } from "@/hooks";
 import { deleteFiles } from "@/slices/documentSlice";
 import { updateStore } from "@/slices/storeSlice";
-import { queryOrderPrices } from "@/services";
+import { queryOrderPrices } from "@/services/price";
 
 import styles from "./index.module.less";
 

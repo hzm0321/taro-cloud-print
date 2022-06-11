@@ -4,8 +4,8 @@ import { Button, CellGroup, Form, FormItem, Icon } from "@antmjs/vantui";
 import { IFormInstanceAPI } from "@antmjs/vantui/types/form";
 import { Input, View, Textarea } from "@tarojs/components";
 
-import { useRouteData, useUserInfo } from "@/hooks";
-import { addAddress, updateAddress } from "@/services";
+import { useAppSelector, useRouteData } from "@/hooks";
+import { addAddress, updateAddress } from "@/services/address";
 import Container from "@/components/container";
 import Toast from "@/components/toast";
 
@@ -20,19 +20,20 @@ export interface BackResult {
 
 const AddressDetail: React.FC<Props> = () => {
   const formRef = useRef<IFormInstanceAPI>();
-  const userInfo = useUserInfo();
+  const user = useAppSelector((state) => state.user);
+
   const address = useRouteData<AddressDb>();
 
   const handleSubmit = useCallback(() => {
     formRef.current?.validateFields((err, values) => {
       if (err.length === 0) {
-        if (userInfo?._id) {
+        if (user?._id) {
           Toast.loading("保存中");
           const updateApi = address ? updateAddress : addAddress;
           updateApi({
             ...address,
             ...values,
-            user_id: userInfo?._id,
+            user_id: user?._id,
           } as AddressDb).then((res) => {
             if (res.result.success) {
               Toast.success("保存成功").then(() => {
@@ -45,7 +46,7 @@ const AddressDetail: React.FC<Props> = () => {
         }
       }
     });
-  }, [userInfo?._id, address]);
+  }, [user?._id, address]);
 
   return (
     <Container padding={false} className={styles.wrapper}>

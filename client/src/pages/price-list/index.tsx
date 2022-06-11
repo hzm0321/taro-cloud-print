@@ -5,7 +5,7 @@ import { NoticeBar, Row, Col } from "@antmjs/vantui";
 import { useRouteData } from "@/hooks";
 import Container from "@/components/container/index";
 import { getPrintConfigMean, inversePrice } from "@/utils";
-import { queryPriceById } from "@/services";
+import { queryPriceById } from "@/services/price";
 import Toast from "@/components/toast";
 import { FILE_CONFIG_MEANING, FILE_CONFIG_TYPES } from "@/constants/common";
 

@@ -1,5 +1,3 @@
-import { useCallback, useState } from "react";
-import Taro, { useTabItemTap } from "@tarojs/taro";
 import Router from "tarojs-router-next";
 import { View, Image } from "@tarojs/components";
 import ImgVip from "@/assets/user/vip.svg";
@@ -9,34 +7,23 @@ import ImgOrder from "@/assets/user/order.svg";
 import ImgAbout from "@/assets/user/about.svg";
 import ImgAddress from "@/assets/common/address.svg";
 import Login from "@/components/login";
-import { isLogin } from "@/utils";
 import Empty from "@/components/empty";
 import Container from "@/components/container";
-import { USER_INFO_STORAGE } from "@/constants/storage";
+import { useAppSelector } from "@/hooks";
 
 import styles from "./index.module.less";
 
 const User = () => {
-  const [userInfo, setUserInfo] = useState<UserDb>(() =>
-    Taro.getStorageSync<UserDb>(USER_INFO_STORAGE)
-  );
-
-  const _init = useCallback(() => {
-    setUserInfo(Taro.getStorageSync<UserDb>(USER_INFO_STORAGE));
-  }, []);
-
-  useTabItemTap(() => {
-    _init();
-  });
+  const user = useAppSelector((state) => state.user);
 
   return (
     <Container padding={false} className={styles.wrapper}>
-      {isLogin() ? (
+      {user._id ? (
         <View className={styles.user}>
           <View className={styles.info}>
-            <Image src={userInfo.avatarUrl} className={styles.avatar} />
+            <Image src={user.avatarUrl} className={styles.avatar} />
             <View className={styles.message}>
-              <View className={styles.name}>{userInfo.nickName}</View>
+              <View className={styles.name}>{user.nickName}</View>
               <View className={styles.vip}>
                 <Image src={ImgVip} className={styles.icon} />
               </View>
@@ -74,7 +61,7 @@ const User = () => {
         </View>
       ) : (
         <View className={styles.login}>
-          <Empty type="login" extra={<Login afterLogin={_init} />} />
+          <Empty type="login" extra={<Login />} />
         </View>
       )}
     </Container>
