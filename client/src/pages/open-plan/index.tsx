@@ -6,6 +6,7 @@ import Taro from "@tarojs/taro";
 
 import Toast from "@/components/toast";
 import { queryReleases } from "@/services/open";
+
 import styles from "./index.module.less";
 
 interface Props {}
@@ -39,7 +40,7 @@ const technologyList = [
 
 const STAR_URL = "https://github.com/hzm0321/taro-cloud-print";
 const OpenPlan: React.FC<Props> = () => {
-  const [releaseList, setReleaseList] = useState([]);
+  const [releaseList, setReleaseList] = useState<CloudReleaseData[]>([]);
 
   useEffect(() => {
     Toast.loading("加载中...");
@@ -68,7 +69,7 @@ const OpenPlan: React.FC<Props> = () => {
 
   const renderSteps = useMemo(() => {
     if (releaseList.length) {
-      return releaseList.map((item, index) => ({
+      return releaseList.map((item) => ({
         text: (
           <View className={styles.text}>
             {item.name}
@@ -77,7 +78,8 @@ const OpenPlan: React.FC<Props> = () => {
             </Text>
           </View>
         ),
-        desc: <View className={styles.desc}>{item.body}</View>,
+        // desc: <View className={styles.desc}>{item.body}</View>,
+        desc: <wemark md={item.body} link highlight type="wemark" />,
         inactiveIcon: "star",
       }));
     }
@@ -141,4 +143,7 @@ definePageConfig({
   navigationBarTextStyle: "white",
   navigationBarTitleText: "开源计划",
   backgroundColor: "#f5f6f9",
+  usingComponents: {
+    wemark: "../../components/wemark/wemark",
+  },
 });

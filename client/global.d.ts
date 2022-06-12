@@ -31,3 +31,9 @@ declare interface CloudDatabase {
   _createTime: number;
   _updateTime: number;
 }
+
+declare namespace JSX {
+  interface IntrinsicElements {
+    wemark: any;
+  }
+}

@@ -7,5 +7,5 @@ export const queryReleases = () => {
     data: {
       $url: "release/list",
     },
-  }) as Promise<CloudFunctionResult<any>>;
+  }) as Promise<CloudFunctionResult<CloudReleaseData[]>>;
 };

@@ -45,3 +45,10 @@ declare interface CloudPaymentData {
 declare interface CloudOrderListData extends OrderDb {
   name: string; // 商店名称
 }
+
+// 版本发布记录
+declare interface CloudReleaseData {
+  name: string;
+  published_at: Date;
+  body: string;
+}

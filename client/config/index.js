@@ -17,7 +17,12 @@ const config = {
     "@": path.resolve(__dirname, "..", "src"),
   },
   copy: {
-    patterns: [],
+    patterns: [
+      {
+        from: "src/components/wemark",
+        to: "dist/wemark",
+      },
+    ],
     options: {},
   },
   framework: "react",
@@ -43,6 +48,11 @@ const config = {
     },
     miniCssExtractPluginOption: {
       ignoreOrder: true,
+    },
+    compile: {
+      exclude: [
+        path.resolve(__dirname, "../src/components/wemark/remarkable.js"),
+      ],
     },
   },
   h5: {
