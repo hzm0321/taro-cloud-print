@@ -33,8 +33,6 @@ const PrintOption: React.FC<Props> = () => {
   const files = useAppSelector((state) => state.document);
   const storeData = useAppSelector((state) => state.store);
 
-  console.log(storeData);
-
   // 初始化商店数据
   useEffect(() => {
     dispatch(updateStore());

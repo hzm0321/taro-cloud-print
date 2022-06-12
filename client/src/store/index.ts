@@ -13,10 +13,10 @@ export const store = configureStore({
     user: userReducer,
   },
   middleware: (getDefaultMiddleware) => {
-    let middleware: any = getDefaultMiddleware();
+    let middleware = getDefaultMiddleware();
     middleware.concat(ThunkMiddleware);
     if (process.env.NODE_ENV === "development") {
-      middleware = middleware.concat(logger);
+      middleware.concat(logger);
     }
     return middleware;
   },
