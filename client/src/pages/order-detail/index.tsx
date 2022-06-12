@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Image, View } from "@tarojs/components";
 import { Button, Cell, CellGroup, Icon, Steps } from "@antmjs/vantui";
 import Router, { NavigateType } from "tarojs-router-next";
-import Taro from "@tarojs/taro";
 
 import Container from "@/components/container";
 import Toast from "@/components/toast";
@@ -13,7 +12,13 @@ import { useRouteParams } from "@/hooks";
 import { ORDER_STATUS, ORDER_STATUS_MEANING } from "@/constants/common";
 import { confirmPrintOrder, queryOrderByOutTradeNo } from "@/services/order";
 import { queryStoreById } from "@/services/store";
-import { dateFormat, formatArea, getFileMean, inversePrice } from "@/utils";
+import {
+  dateFormat,
+  formatArea,
+  getFileMean,
+  handleCopy,
+  inversePrice,
+} from "@/utils";
 import ImgCoupon from "@/assets/common/coupon.svg";
 import ImgAddress from "@/assets/common/address.svg";
 import ImgRemark from "@/assets/common/remark.svg";
@@ -48,16 +53,6 @@ const OrderDetail: React.FC<Props> = () => {
     }
   }, [outTradeNo]);
 
-  const handleCopy = (str) => {
-    Taro.setClipboardData({ data: str })
-      .then(() => {
-        Toast.success("已复制快递单号到剪贴板");
-      })
-      .catch(() => {
-        Toast.fail("复制失败");
-      });
-  };
-
   const steps = useMemo(() => {
     if (orderDetail.histories) {
       return orderDetail.histories
@@ -81,7 +76,9 @@ const OrderDetail: React.FC<Props> = () => {
                   <Icon
                     name="orders-o"
                     color="#36b7ab"
-                    onClick={() => handleCopy(item.trackNo)}
+                    onClick={() =>
+                      handleCopy(item.trackNo, "已复制快递单号到剪贴板")
+                    }
                   />{" "}
                   (复制后在公众号首页查询)
                 </View>

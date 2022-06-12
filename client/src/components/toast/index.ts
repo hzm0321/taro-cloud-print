@@ -9,7 +9,7 @@ class Toast {
   private generateToast(
     msg: string,
     icon: "success" | "error" | "loading" | "none",
-    options?: Taro.showToast.Option
+    options?: Partial<Taro.showToast.Option>
   ) {
     return new Promise((resolve) => {
       return Taro.showToast({
@@ -25,20 +25,20 @@ class Toast {
     });
   }
 
-  loading(msg: string, options?: Taro.showLoading.Option) {
+  loading(msg: string, options?: Partial<Taro.showLoading.Option>) {
     const { duration, ...otherDefaultOptions } = this.defaultOption;
     return Taro.showLoading({ title: msg, ...otherDefaultOptions, ...options });
   }
 
-  show(msg: string, options?: Taro.showToast.Option) {
+  show(msg: string, options?: Partial<Taro.showToast.Option>) {
     return this.generateToast(msg, "none", options);
   }
 
-  success(msg: string, options?: Taro.showToast.Option) {
+  success(msg: string, options?: Partial<Taro.showToast.Option>) {
     return this.generateToast(msg, "success", options);
   }
 
-  fail(msg: string, options?: Taro.showLoading.Option) {
+  fail(msg: string, options?: Partial<Taro.showLoading.Option>) {
     return this.generateToast(msg, "error", options);
   }
 

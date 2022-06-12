@@ -1,5 +1,5 @@
 {
-  "name": "order",
+  "name": "open",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "wx-server-sdk": "~2.6.2",
     "tcb-router": "^1.1.2",
-    "wx-server-sdk": "~2.6.1"
+    "axios": "^0.27.2"
   }
 }

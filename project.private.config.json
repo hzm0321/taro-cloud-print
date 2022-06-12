@@ -77,6 +77,13 @@
           "query": "outTradeNo=Pzlap650vobd1653058164",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "开源计划",
+          "pathName": "pages/open-plan/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

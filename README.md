@@ -27,7 +27,7 @@
 - [WeCloudbase](https://cloud.weixin.qq.com/cloudbase)
 - [React](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Redux](https://redux.js.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
 - [@antmjs/vantui](https://antmjs.github.io/vantui/#/home)
 
 ## 小程序效果预览

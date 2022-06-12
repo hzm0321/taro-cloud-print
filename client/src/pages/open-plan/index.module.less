@@ -1,0 +1,91 @@
+@import "../../styles/variable";
+
+.title() {
+  font-size: @font-size-lg;
+  margin-top: 20px;
+}
+
+.wrapper {
+  .introduce {
+    background: @primary-color;
+    color: white;
+    padding: 20px 40px 40px 40px;
+    position: relative;
+
+    .title {
+      font-size: 45px;
+    }
+
+    .content {
+      margin-top: 10px;
+      font-size: @font-size-lg;
+      line-height: 50px;
+    }
+
+    .to-star {
+      margin-top: 20px;
+    }
+
+    .stars {
+      position: absolute;
+      right: 20px;
+      top: 30px;
+      height: 40px;
+      width: 140px;
+    }
+  }
+
+  .technology {
+    margin: 20px;
+    .card-shadow();
+
+    .title {
+      .title();
+    }
+
+    .content {
+      color: @page-color-gray-dark;
+
+      .tag {
+        margin-top: 20px;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .release {
+    margin: 20px;
+    .card-shadow();
+
+    .title {
+      .title();
+    }
+
+    .steps {
+      .text {
+        color: @black;
+        font-size: @font-size-lg;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .date {
+          margin-left: 40px;
+          color: @page-color-gray-dark;
+          font-size: @font-size-md;
+        }
+      }
+
+      .desc {
+        margin-top: 20px;
+        font-size: @font-size-md;
+      }
+
+      :global {
+        .van-step__icon {
+          font-size: @font-size-lg;
+        }
+      }
+    }
+  }
+}

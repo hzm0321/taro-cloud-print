@@ -20,6 +20,9 @@ const AboutWe: React.FC<Props> = () => {
       <CellGroup>
         <Cell title="客户服务热线" isLink />
       </CellGroup>
+      <CellGroup>
+        <Cell title="开源计划" isLink url="/pages/open-plan/index" />
+      </CellGroup>
       <View className={styles.footer}>
         <View className={styles.desc}>小程序版本&nbsp;V{pkg.version}</View>
       </View>

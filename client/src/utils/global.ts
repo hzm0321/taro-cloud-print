@@ -268,3 +268,13 @@ export async function lookFile({
     Toast.fail("文件打开失败");
   }
 }
+
+export function handleCopy(text: string, msg?: string) {
+  Taro.setClipboardData({ data: text })
+    .then(() => {
+      Toast.success(msg || "复制成功");
+    })
+    .catch(() => {
+      Toast.fail("复制失败");
+    });
+}
