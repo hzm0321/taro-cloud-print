@@ -56,8 +56,6 @@
 export const CLOUD_SERVICE = "XXXXXX"; // 你的环境ID
 ```
 
-在项目的支付云函数(`could/functions/pay`)中也会使用的环境ID，如果项目开通了微信支付权限，也需要替换支付云函数中的环境 ID。
-
 ### 创建云数据库集合
 
 本项目目前使用云数据库集合及字段内容如下:

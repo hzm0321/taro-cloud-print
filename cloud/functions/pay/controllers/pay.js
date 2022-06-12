@@ -1,7 +1,6 @@
 // const cloud = require("wx-server-sdk");
 // cloud.init();
 // const db = cloud.database();
-const { PAY_ENV } = require("../constants/env");
 const { MCH_Id } = require("../constants/common");
 const { DB_ORDERS, DB_USERS } = require("../constants/database");
 const { getTime } = require("../utils/common");
@@ -29,6 +28,7 @@ class Pay {
           orderType,
           address,
           remark,
+          envId,
         },
       },
     } = ctx;
@@ -42,7 +42,6 @@ class Pay {
     const body = "打印订单";
     const tradeType = "JSAPI";
     let totalPrice = 0;
-    const envId = PAY_ENV;
 
     // 计算价格
     const priceRes = await cloud.callFunction({

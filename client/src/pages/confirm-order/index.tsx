@@ -74,7 +74,11 @@ const ConfirmOrder: React.FC<Props> = () => {
       requestPay(data)
         .then((res) => {
           if (res.result.success) {
-            const { payment, outTradeNo, totalPrice } = res.result.data;
+            const {
+              payment,
+              outTradeNo,
+              totalPrice: actualPrice,
+            } = res.result.data;
             payResRef.current = res.result.data;
             if (payment) {
               Taro.requestPayment({ ...payment })
@@ -85,7 +89,7 @@ const ConfirmOrder: React.FC<Props> = () => {
                   paySuccessMsgRef.current = {
                     character_string1: { value: outTradeNo }, // 订单编号
                     thing5: { value: storeData.name }, // 店铺名称
-                    amount10: { value: inversePrice(totalPrice) }, // 实付金额
+                    amount10: { value: inversePrice(actualPrice) }, // 实付金额
                     time9: { value: getTime() }, // 付款日期
                     thing6: { value: trim(remark) || "无" }, // 备注
                   };
@@ -98,13 +102,15 @@ const ConfirmOrder: React.FC<Props> = () => {
             } else {
               Notify.show({ type: "danger", message: "支付失败" });
             }
+          } else {
+            Notify.show({ type: "danger", message: "支付失败" });
           }
         })
         .finally(() => {
           Toast.hideLoading();
         });
     } else {
-      Toast.fail("支付失败");
+      Notify.show({ type: "danger", message: "支付失败" });
     }
   };
 

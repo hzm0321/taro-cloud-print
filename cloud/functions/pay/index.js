@@ -14,6 +14,7 @@ exports.main = async (event, context) => {
 
   event.cloud = cloud;
   event.openid = wxContext.OPENID;
+  event.envId = wxContext.ENV;
   const app = new TcbRouter({ event });
 
   /****** 小程序端 ******/
@@ -21,5 +22,4 @@ exports.main = async (event, context) => {
   app.router("pay/unified", unifiedOrder);
 
   return app.serve();
-
 };
